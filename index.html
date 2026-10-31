@@ -98,11 +98,27 @@
             border: 1px solid #fca5a5;
         }
 
+        /* PRINT STYLES - UNLIMITED PAGES & FULL CONTENT VISIBILITY */
         @media print {
             .no-print { display: none !important; }
             .print-only { display: block !important; }
-            body { background: white !important; }
-            .modal-content { box-shadow: none !important; border: none !important; }
+            body { background: white !important; color: black !important; }
+            .fixed { position: absolute !important; }
+            #studentDetailModal {
+                position: absolute !important;
+                inset: 0 !important;
+                background: white !important;
+                padding: 0 !important;
+                max-height: none !important;
+                overflow: visible !important;
+            }
+            #studentDetailModal > div {
+                box-shadow: none !important;
+                border: none !important;
+                max-height: none !important;
+                width: 100% !important;
+                padding: 0 !important;
+            }
         }
     </style>
 </head>
@@ -121,7 +137,7 @@
                     <div>
                         <div class="flex items-center gap-1.5">
                             <span class="text-2xl font-extrabold tracking-tight bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">Ուսանող․եմ</span>
-                            <span class="bg-emerald-100 text-emerald-700 text-[10px] font-bold px-2 py-0.5 rounded-full border border-emerald-200">PRO v3.0</span>
+                            <span class="bg-emerald-100 text-emerald-700 text-[10px] font-bold px-2 py-0.5 rounded-full border border-emerald-200">PRO v3.2</span>
                         </div>
                         <p class="text-xs text-slate-500 font-medium">Համալսարանական էլեկտրոնային համակարգ</p>
                     </div>
@@ -158,7 +174,7 @@
                     <i class="fa-solid fa-graduation-cap"></i> Կուրսեր և ֆայլեր
                 </button>
                 <button id="tab-archive" onclick="switchTab('archive')" class="nav-tab text-slate-600 hover:bg-slate-100 px-4 py-2 rounded-lg text-sm font-semibold flex items-center gap-2 transition-all">
-                    <i class="fa-solid fa-box-archive"></i> Արխիվացված թեմաներ
+                    <i class="fa-solid fa-box-archive"></i> Արխիվացված թեմաներ և առարկաներ
                 </button>
                 <button id="tab-history" onclick="switchTab('history')" class="nav-tab text-slate-600 hover:bg-slate-100 px-4 py-2 rounded-lg text-sm font-semibold flex items-center gap-2 transition-all">
                     <i class="fa-solid fa-clock-rotate-left"></i> Ակադեմիական պատմություն
@@ -225,15 +241,18 @@
         <section id="section-gradebook" class="hidden space-y-6">
             <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
-                    <h2 class="text-xl font-bold text-slate-800">Էլեկտրոնային օրագիր</h2>
-                    <p class="text-xs text-slate-500">100-միավորանոց գնահատման համակարգ, հաճախումներ և կիսամյակային ամփոփիչներ:</p>
+                    <h2 class="text-xl font-bold text-slate-800">Էլեկտրոնային օրագիր և առարկաներ</h2>
+                    <p class="text-xs text-slate-500">100-միավորանոց գնահատման համակարգ, նոր առարկաների ավելացում և կիսամյակային ամփոփիչներ:</p>
                 </div>
-                <div class="flex items-center gap-2">
+                <div class="flex flex-wrap items-center gap-2">
                     <select id="gradebookStudentSelect" onchange="loadStudentGradebook(this.value)" class="px-4 py-2 bg-white border border-slate-300 rounded-xl text-sm font-semibold text-slate-700 focus:ring-2 focus:ring-blue-500 focus:outline-none shadow-sm">
                         <!-- Student options loaded dynamically -->
                     </select>
+                    <button onclick="openAddSubjectModal()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 shadow">
+                        <i class="fa-solid fa-plus-circle"></i> Ավելացնել նոր առարկա
+                    </button>
                     <button onclick="printGradebook()" class="bg-slate-800 hover:bg-slate-900 text-white px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 shadow">
-                        <i class="fa-solid fa-print"></i> Տպել, կամ արտածել PDF տարբերակով
+                        <i class="fa-solid fa-print"></i> Տպել / PDF
                     </button>
                 </div>
             </div>
@@ -288,11 +307,13 @@
         <!-- TAB 4: ARCHIVE SECTION -->
         <section id="section-archive" class="hidden space-y-6">
             <div>
-                <h2 class="text-xl font-bold text-slate-800">Արխիվացված թեմաներ և առարկաներ</h2>
-                <p class="text-xs text-slate-500">Այստեղ պահվում են ավարտված կամ արխիվ ուղարկված նյութերը:</p>
+                <h2 class="text-xl font-bold text-slate-800">Արխիվացված առարկաներ և թեմաներ</h2>
+                <p class="text-xs text-slate-500">Այստեղ պահվում են ավարտված առարկաներն իրենց վերջնական գնահատականներով և արխիվ ուղարկված նյութերը:</p>
             </div>
 
-            <div id="archivedTopicsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+            <div id="archivedGrid" class="space-y-6">
+                <!-- Archived subjects & topics rendered here -->
+            </div>
 
             <div id="emptyArchiveState" class="hidden text-center py-16 bg-white rounded-3xl border border-dashed border-slate-300">
                 <i class="fa-solid fa-box-archive text-4xl text-slate-300 mb-3"></i>
@@ -424,7 +445,7 @@
         </div>
     </div>
 
-    <!-- MODAL 2: STUDENT DETAILS & EXAM TOPICS MODAL -->
+    <!-- MODAL 2: STUDENT DETAILS MODAL -->
     <div id="studentDetailModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
         <div class="bg-white rounded-3xl max-w-4xl w-full p-6 sm:p-8 shadow-2xl max-h-[92vh] overflow-y-auto custom-scrollbar border border-slate-100">
             
@@ -435,7 +456,7 @@
                         <i class="fa-solid fa-pen-to-square"></i> Խմբագրել տվյալները
                     </button>
                     <button onclick="window.print()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-all">
-                        <i class="fa-solid fa-print"></i> Տպել
+                        <i class="fa-solid fa-print"></i> Տպել ամբողջը (բոլոր էջերը)
                     </button>
                     <button onclick="closeStudentDetailModal()" class="text-slate-400 hover:text-slate-600 p-2 rounded-full hover:bg-slate-100 transition-all">
                         <i class="fa-solid fa-xmark text-lg"></i>
@@ -519,12 +540,11 @@
 
     <!-- JAVASCRIPT APP LOGIC -->
     <script>
-        // Predefined default subjects
         const DEFAULT_SUBJECTS = [
-            "Ընհանուր հոգեբանություն",
+            "Ընդհանուր հոգեբանություն",
             "Ֆոտոկոմպոզիցիա",
             "Օտար լեզու",
-            "ՏՀՏ",
+            "ԹՀՏ",
             "Հայոց լեզու",
             "Ֆիզկուլտուրա",
             "Գեղարվեստական լուսանկարչության հիմունքներ",
@@ -532,17 +552,14 @@
             "Հայոց պատմություն"
         ];
 
-        // State variables
         let appData = {
             students: [],
-            archive: [],
+            archiveItems: [],
             history: []
         };
         let currentSelectedStudentId = null;
         let activePhotoBase64 = null;
-        let currentCourseFilter = 'all';
 
-        // Initialize application on DOM load
         document.addEventListener('DOMContentLoaded', () => {
             loadFromLocalStorage();
             renderStudents();
@@ -551,15 +568,12 @@
             renderCourseFiles();
             renderArchive();
             renderHistory();
-            
-            // Default to students tab
             switchTab('students');
         });
 
-        // LocalStorage Management
         function saveToLocalStorage() {
             try {
-                localStorage.setItem('usanog_am_data_v3', JSON.stringify(appData));
+                localStorage.setItem('usanog_am_data_v32', JSON.stringify(appData));
             } catch (e) {
                 console.error("Storage error:", e);
             }
@@ -567,11 +581,10 @@
 
         function loadFromLocalStorage() {
             try {
-                const saved = localStorage.getItem('usanog_am_data_v3');
+                const saved = localStorage.getItem('usanog_am_data_v32');
                 if (saved) {
                     appData = JSON.parse(saved);
                 } else {
-                    // Seed initial demo student if empty
                     seedDemoData();
                 }
             } catch (e) {
@@ -583,9 +596,9 @@
         function seedDemoData() {
             const demoStudent = {
                 id: 'std_' + Date.now(),
-                firstName: 'Վարդուշ',
-                lastName: 'Պողոսյան',
-                middleName: 'Հրայրի',
+                firstName: 'Խաչիկ',
+                lastName: 'Ղուկասյան',
+                middleName: 'Թաթուլի',
                 university: 'ԽԱՉԱՏՈՒՐ ԱԲՈՎՅԱՆԻ ԱՆՎԱՆ ՀԱՅԿԱԿԱՆ ՊԵՏԱԿԱՆ ՄԱՆԿԱՎԱՐԺԱԿԱՆ ՀԱՄԱԼՍԱՐԱՆ',
                 faculty: 'Կուլտուրայի ֆակուլտետ',
                 chair: 'Գեղարվեստական լուսանկարչություն',
@@ -607,33 +620,23 @@
                             { date: '2026-03-10', type: 'Ընթացիկ ակտիվություն', topic: 'Լույսի տեսակներ', attendance: 'present', score: 95 },
                             { date: '2026-04-02', type: 'Միջանկյալ ստուգում', topic: 'Էքսպոզիցիա', attendance: 'present', score: 88 }
                         ]
-                    },
-                    {
-                        id: 'top_2',
-                        subject: 'Հայոց պատմություն',
-                        title: 'Կիլիկյան Հայաստան',
-                        type: 'Ստուգարք',
-                        lecturer: 'Գ. Մ. Վարդանյան',
-                        semester: '1',
-                        fileName: 'Kilikia_Referat.docx',
-                        status: 'active',
-                        grades: [
-                            { date: '2026-03-15', type: 'Սեմինար', topic: 'Քաղաքական դրություն', attendance: 'present', score: 78 }
-                        ]
                     }
                 ],
                 subjectsGradebook: DEFAULT_SUBJECTS.map(subj => ({
+                    id: 'subj_' + Math.random().toString(36.substr(2, 9)),
                     name: subj,
                     status: 'active',
-                    grades: []
+                    finalScore: null,
+                    grades: [
+                        { date: '2026-03-15', type: 'Ընթացիկ ակտիվություն', topic: 'Ներածություն', attendance: 'present', score: 85 }
+                    ]
                 }))
             };
             appData.students.push(demoStudent);
-            addHistoryRecord('Համակարգում ավելացվել է նախնական ուսանող՝Վարդուշ Պողոսյան');
+            addHistoryRecord('Համակարգում ավելացվել է նախնական ուսանող՝ Խաչիկ Ղուկասյան');
             saveToLocalStorage();
         }
 
-        // Tab Switching
         function switchTab(tabName) {
             document.querySelectorAll('main > section').forEach(sec => sec.classList.add('hidden'));
             document.querySelectorAll('.nav-tab').forEach(tab => {
@@ -668,12 +671,10 @@
             }
         }
 
-        // Photo Validation & Preview
         function validateAndPreviewPhoto(event) {
             const file = event.target.files[0];
             if (!file) return;
 
-            // Enforce real person image check (basic check on file type/size or naming)
             if (!file.type.startsWith('image/')) {
                 alert('Խնդրում ենք ընտրել միայն նկար ֆայլ (3x4 անձի լուսանկար):');
                 return;
@@ -681,22 +682,17 @@
 
             const reader = new FileReader();
             reader.onload = function(e) {
-                const img = new Image();
-                img.src = e.target.result;
-                img.onload = function() {
-                    activePhotoBase64 = e.target.result;
-                    const previewImg = document.getElementById('photoPreviewImg');
-                    const placeholder = document.getElementById('photoIconPlaceholder');
-                    previewImg.src = activePhotoBase64;
-                    previewImg.classList.remove('hidden');
-                    placeholder.classList.add('hidden');
-                    document.getElementById('photoStatus').innerHTML = '<i class="fa-solid fa-circle-check text-emerald-500"></i> Անձի լուսանկարը հաջողությամբ կցվեց:';
-                }
+                activePhotoBase64 = e.target.result;
+                const previewImg = document.getElementById('photoPreviewImg');
+                const placeholder = document.getElementById('photoIconPlaceholder');
+                previewImg.src = activePhotoBase64;
+                previewImg.classList.remove('hidden');
+                placeholder.classList.add('hidden');
+                document.getElementById('photoStatus').innerHTML = '<i class="fa-solid fa-circle-check text-emerald-500"></i> Անձի լուսանկարը հաջողությամբ կցվեց:';
             };
             reader.readAsDataURL(file);
         }
 
-        // Student Modal Handlers
         function openAddStudentModal() {
             document.getElementById('editStudentId').value = '';
             document.getElementById('studentModalTitle').textContent = 'Ավելացնել ուսանող';
@@ -793,8 +789,10 @@
                     photo: activePhotoBase64 || '',
                     topics: [],
                     subjectsGradebook: DEFAULT_SUBJECTS.map(subj => ({
+                        id: 'subj_' + Math.random().toString(36.substr(2, 9)),
                         name: subj,
                         status: 'active',
+                        finalScore: null,
                         grades: []
                     }))
                 };
@@ -807,10 +805,8 @@
             renderStudents();
             updateGlobalStats();
             populateStudentSelects();
-            renderCourseFiles();
         }
 
-        // Render Students Directory
         function renderStudents(studentsToRender = appData.students) {
             const grid = document.getElementById('studentsGrid');
             const emptyState = document.getElementById('emptyStudentsState');
@@ -863,7 +859,6 @@
             });
         }
 
-        // Student Detail View & Topics
         function openStudentDetail(studentId) {
             currentSelectedStudentId = studentId;
             const student = appData.students.find(s => s.id === studentId);
@@ -938,14 +933,13 @@
             const container = document.getElementById('studentTopicsList');
             container.innerHTML = '';
 
-            if (!student.topics || student.topics.length === 0) {
+            const activeTopics = student.topics.filter(t => t.status === 'active');
+            if (activeTopics.length === 0) {
                 container.innerHTML = '<p class="text-xs text-slate-400 text-center py-4">Դեռևս ավելացված թեմաներ չկան:</p>';
                 return;
             }
 
-            student.topics.forEach(topic => {
-                if (topic.status !== 'active') return;
-
+            activeTopics.forEach(topic => {
                 const card = document.createElement('div');
                 card.className = 'bg-white border border-slate-200 rounded-2xl p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-sm';
                 
@@ -961,7 +955,7 @@
                             <span><i class="fa-solid fa-file-arrow-down mr-1 text-blue-500"></i> ${topic.fileName}</span>
                         </div>
                     </div>
-                    <div class="flex items-center gap-2 w-full sm:w-auto justify-end">
+                    <div class="flex items-center gap-2 w-full sm:w-auto justify-end no-print">
                         <button onclick="archiveTopic('${student.id}', '${topic.id}')" class="bg-emerald-50 hover:bg-emerald-100 text-emerald-700 px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1 transition-all border border-emerald-200">
                             <i class="fa-solid fa-box-archive"></i> Արխիվացնել
                         </button>
@@ -978,11 +972,11 @@
             const student = appData.students.find(s => s.id === studentId);
             if (!student) return;
 
-            const index = student.topics.findIndex(t => t.id === topicId);
-            if (index !== -1) {
-                const topic = student.topics[index];
+            const topic = student.topics.find(t => t.id === topicId);
+            if (topic) {
                 topic.status = 'archived';
-                appData.archive.push({ ...topic, studentName: `${student.lastName} ${student.firstName}` });
+                if (!appData.archiveItems) appData.archiveItems = [];
+                appData.archiveItems.push({ ...topic, typeItem: 'topic', studentName: `${student.lastName} ${student.firstName}`, studentId });
                 saveToLocalStorage();
                 renderStudentTopics(student);
                 renderArchive();
@@ -1000,7 +994,38 @@
             renderStudentTopics(student);
         }
 
-        // Gradebook & 100-Point Scale Grading
+        function openAddSubjectModal() {
+            if (!currentSelectedStudentId) {
+                alert('Խնդրում ենք նախ ընտրել ուսանողին էլեկտրոնային օրագրում։');
+                return;
+            }
+            const subjectName = prompt('Մուտքագրեք նոր առարկայի անվանումը (օր․՝ Տեղեկատվական տեխնոլոգիաներ):', '');
+            if (!subjectName || !subjectName.trim()) return;
+
+            const student = appData.students.find(s => s.id === currentSelectedStudentId);
+            if (!student) return;
+
+            if (!student.subjectsGradebook) student.subjectsGradebook = [];
+
+            const exists = student.subjectsGradebook.some(s => s.name.toLowerCase() === subjectName.trim().toLowerCase() && s.status === 'active');
+            if (exists) {
+                alert('Այս առարկան արդեն գոյություն ունի ուսանողի ցանկում։');
+                return;
+            }
+
+            student.subjectsGradebook.push({
+                id: 'subj_' + Math.random().toString(36.substr(2, 9)),
+                name: subjectName.trim(),
+                status: 'active',
+                finalScore: null,
+                grades: []
+            });
+
+            saveToLocalStorage();
+            loadStudentGradebook(student.id);
+            addHistoryRecord(`Ավելացվել է նոր առարկա՝ "${subjectName.trim()}" (${student.lastName} ${student.firstName})`);
+        }
+
         function populateStudentSelects() {
             const select = document.getElementById('gradebookStudentSelect');
             if (!select) return;
@@ -1022,26 +1047,39 @@
 
             container.innerHTML = '';
 
-            // Ensure subjectsGradebook exists
             if (!student.subjectsGradebook) {
                 student.subjectsGradebook = DEFAULT_SUBJECTS.map(subj => ({
+                    id: 'subj_' + Math.random().toString(36.substr(2, 9)),
                     name: subj,
                     status: 'active',
+                    finalScore: null,
                     grades: []
                 }));
             }
 
-            student.subjectsGradebook.forEach((subjItem, sIdx) => {
-                if (subjItem.status !== 'active') return;
+            const activeSubjects = student.subjectsGradebook.filter(s => s.status === 'active');
+
+            if (activeSubjects.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-12 bg-white rounded-3xl border border-dashed border-slate-300">
+                        <i class="fa-solid fa-book text-4xl text-slate-300 mb-2"></i>
+                        <p class="text-slate-500 text-sm mb-3">Ակտիվ առարկաներ չկան:</p>
+                        <button onclick="openAddSubjectModal()" class="bg-blue-600 text-white px-4 py-2 rounded-xl text-xs font-bold">Ավելացնել առարկա</button>
+                    </div>
+                `;
+                return;
+            }
+
+            activeSubjects.forEach((subjItem) => {
+                const sIdx = student.subjectsGradebook.findIndex(s => s.id === subjItem.id);
 
                 const card = document.createElement('div');
                 card.className = 'bg-white rounded-3xl border border-slate-200 p-6 shadow-sm space-y-4';
 
-                // Calculate subject average score
                 let totalScore = 0;
                 let count = subjItem.grades.length;
                 subjItem.grades.forEach(g => totalScore += Number(g.score || 0));
-                let avg = count > 0 ? (totalScore / count).toFixed(1) : 0;
+                let avg = count > 0 ? (totalScore / count).toFixed(1) : (subjItem.finalScore || 0);
 
                 let badgeClass = 'grade-badge-fail';
                 let gradeText = 'Անբավարար';
@@ -1072,7 +1110,7 @@
                             <td class="py-2.5 px-3 text-xs text-center font-black">
                                 <span class="px-2.5 py-1 rounded-lg ${scoreBadgeClass}">${g.score} միավոր</span>
                             </td>
-                            <td class="py-2.5 px-3 text-xs text-right">
+                            <td class="py-2.5 px-3 text-xs text-right no-print">
                                 <button onclick="deleteGrade('${student.id}', ${sIdx}, ${gIdx})" class="text-rose-500 hover:text-rose-700 p-1"><i class="fa-solid fa-trash"></i></button>
                             </td>
                         </tr>
@@ -1088,12 +1126,12 @@
                             </div>
                             <p class="text-xs text-slate-500">100-միավորանոց սանդղակ (60+ անցողիկ)</p>
                         </div>
-                        <div class="flex items-center gap-2 no-print">
-                            <button onclick="openAddGradeModal('${student.id}', ${sIdx})" class="bg-blue-600 hover:bg-blue-700 text-white px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5">
+                        <div class="flex flex-wrap items-center gap-2 no-print">
+                            <button onclick="openAddGradeModal('${student.id}', ${sIdx})" class="bg-blue-600 hover:bg-blue-700 text-white px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 shadow">
                                 <i class="fa-solid fa-plus"></i> Ավելացնել գնահատական
                             </button>
-                            <button onclick="archiveSubject('${student.id}', ${sIdx})" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-xl text-xs font-semibold">
-                                Ավարտել / Արխիվացնել
+                            <button onclick="finishAndArchiveSubject('${student.id}', ${sIdx})" class="bg-emerald-600 hover:bg-emerald-700 text-white px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 shadow">
+                                <i class="fa-solid fa-box-archive"></i> Ավարտել և պահպանել արխիվում
                             </button>
                         </div>
                     </div>
@@ -1120,7 +1158,6 @@
             });
         }
 
-        // Add Grade Prompt/Modal simulation
         function openAddGradeModal(studentId, subjectIndex) {
             const date = prompt('Նշեք ամսաթիվը (YYYY-MM-DD):', new Date().toISOString().split('T')[0]);
             if (!date) return;
@@ -1165,20 +1202,43 @@
             updateGlobalStats();
         }
 
-        function archiveSubject(studentId, subjectIndex) {
+        function finishAndArchiveSubject(studentId, subjectIndex) {
             const student = appData.students.find(s => s.id === studentId);
             if (!student) return;
 
-            student.subjectsGradebook[subjectIndex].status = 'archived';
+            const subj = student.subjectsGradebook[subjectIndex];
+
+            let totalScore = 0;
+            let count = subj.grades.length;
+            subj.grades.forEach(g => totalScore += Number(g.score || 0));
+            let finalAvg = count > 0 ? (totalScore / count).toFixed(1) : 0;
+
+            subj.status = 'archived';
+            subj.finalScore = finalAvg;
+
+            if (!appData.archiveItems) appData.archiveItems = [];
+            appData.archiveItems.push({
+                typeItem: 'subject',
+                id: 'arch_' + Date.now(),
+                studentName: `${student.lastName} ${student.firstName}`,
+                studentId: student.id,
+                name: subj.name,
+                finalScore: finalAvg,
+                gradesCount: count,
+                grades: [...subj.grades]
+            });
+
             saveToLocalStorage();
             loadStudentGradebook(studentId);
+            renderArchive();
+            addHistoryRecord(`Առարկան («${subj.name}») հաջողությամբ ավարտվել և պահպանվել է արխիվում (${finalAvg} վերջնական միավորով)`);
+            alert(`Առարկան հաջողությամբ ավարտվեց և մշտական գնահատականով (${finalAvg} միավոր) ուղարկվեց արխիվ։`);
         }
 
         function printGradebook() {
             window.print();
         }
 
-        // Courses & Files Tab
         function renderCourseFiles(courseFilter = 'all') {
             const container = document.getElementById('courseFilesContainer');
             const emptyState = document.getElementById('emptyCourseFiles');
@@ -1195,18 +1255,11 @@
                 });
             });
 
-            // Update badges counts
-            let countAll = allFiles.length;
-            let count1 = allFiles.filter(f => f.course === '1-ին').length;
-            let count2 = allFiles.filter(f => f.course === '2-րդ').length;
-            let count3 = allFiles.filter(f => f.course === '3-րդ').length;
-            let count4 = allFiles.filter(f => f.course === '4-րդ').length;
-
-            document.getElementById('course-count-all').textContent = countAll;
-            document.getElementById('course-count-1').textContent = count1;
-            document.getElementById('course-count-2').textContent = count2;
-            document.getElementById('course-count-3').textContent = count3;
-            document.getElementById('course-count-4').textContent = count4;
+            document.getElementById('course-count-all').textContent = allFiles.length;
+            document.getElementById('course-count-1').textContent = allFiles.filter(f => f.course === '1-ին').length;
+            document.getElementById('course-count-2').textContent = allFiles.filter(f => f.course === '2-րդ').length;
+            document.getElementById('course-count-3').textContent = allFiles.filter(f => f.course === '3-րդ').length;
+            document.getElementById('course-count-4').textContent = allFiles.filter(f => f.course === '4-րդ').length;
 
             let filtered = courseFilter === 'all' ? allFiles : allFiles.filter(f => f.course === courseFilter);
 
@@ -1243,53 +1296,82 @@
             renderCourseFiles(course);
         }
 
-        // Archive Tab
         function renderArchive() {
-            const grid = document.getElementById('archivedTopicsGrid');
+            const grid = document.getElementById('archivedGrid');
             const emptyState = document.getElementById('emptyArchiveState');
             grid.innerHTML = '';
 
-            if (!appData.archive || appData.archive.length === 0) {
+            if (!appData.archiveItems || appData.archiveItems.length === 0) {
                 emptyState.classList.remove('hidden');
                 return;
             }
             emptyState.classList.add('hidden');
 
-            appData.archive.forEach((item, index) => {
+            appData.archiveItems.forEach((item, index) => {
                 const card = document.createElement('div');
-                card.className = 'bg-white rounded-2xl border border-slate-200 p-5 shadow-sm space-y-3';
-                card.innerHTML = `
-                    <div class="flex items-center justify-between">
-                        <span class="bg-emerald-100 text-emerald-700 text-[10px] font-bold px-2 py-0.5 rounded-full">Արխիվացված</span>
-                        <span class="text-xs text-slate-500">${item.studentName}</span>
-                    </div>
-                    <h4 class="font-bold text-slate-800 text-sm">${item.subject}</h4>
-                    <p class="text-xs text-slate-600">${item.title}</p>
-                    <div class="pt-2 border-t border-slate-100 flex justify-end">
-                        <button onclick="restoreArchiveItem(${index})" class="bg-blue-50 hover:bg-blue-100 text-blue-700 px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1">
-                            <i class="fa-solid fa-rotate-left"></i> Վերականգնել
-                        </button>
-                    </div>
-                `;
+                card.className = 'bg-white rounded-3xl border border-slate-200 p-6 shadow-sm space-y-3';
+
+                if (item.typeItem === 'subject') {
+                    card.innerHTML = `
+                        <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                            <div class="flex items-center gap-2">
+                                <span class="bg-emerald-100 text-emerald-700 text-xs font-bold px-3 py-1 rounded-full">Արխիվացված առարկա</span>
+                                <span class="text-xs text-slate-500">Ուսանող՝ <strong>${item.studentName}</strong></span>
+                            </div>
+                            <span class="bg-blue-600 text-white font-black px-3 py-1 rounded-xl text-xs">Վերջնական ՄՈԳ՝ ${item.finalScore} միավոր</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h4 class="font-extrabold text-slate-900 text-base">${item.name}</h4>
+                                <p class="text-xs text-slate-500">Բաղկացած է ${item.gradesCount} գնահատված առաջադրանքից</p>
+                            </div>
+                            <button onclick="restoreArchiveItem(${index})" class="bg-blue-50 hover:bg-blue-100 text-blue-700 px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-all no-print">
+                                <i class="fa-solid fa-rotate-left"></i> Վերականգնել ակտիվ ցանկ
+                            </button>
+                        </div>
+                    `;
+                } else {
+                    card.innerHTML = `
+                        <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                            <span class="bg-purple-100 text-purple-700 text-xs font-bold px-3 py-1 rounded-full">Արխիվացված թեմա</span>
+                            <span class="text-xs text-slate-500">${item.studentName}</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h4 class="font-extrabold text-slate-900 text-base">${item.subject}: ${item.title}</h4>
+                                <p class="text-xs text-slate-500">Տեսակը՝ ${item.type} | Դասախոս՝ ${item.lecturer}</p>
+                            </div>
+                            <button onclick="restoreArchiveItem(${index})" class="bg-blue-50 hover:bg-blue-100 text-blue-700 px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-all no-print">
+                                <i class="fa-solid fa-rotate-left"></i> Վերականգնել
+                            </button>
+                        </div>
+                    `;
+                }
                 grid.appendChild(card);
             });
         }
 
         function restoreArchiveItem(index) {
-            const item = appData.archive[index];
-            item.status = 'active';
-            // Find student and push back
-            const student = appData.students.find(s => `${s.lastName} ${s.firstName}` === item.studentName);
+            const item = appData.archiveItems[index];
+            const student = appData.students.find(s => s.id === item.studentId);
+
             if (student) {
-                student.topics.push(item);
+                if (item.typeItem === 'subject') {
+                    const subj = student.subjectsGradebook.find(s => s.name === item.name);
+                    if (subj) subj.status = 'active';
+                } else {
+                    const top = student.topics.find(t => t.id === item.id);
+                    if (top) top.status = 'active';
+                }
             }
-            appData.archive.splice(index, 1);
+
+            appData.archiveItems.splice(index, 1);
             saveToLocalStorage();
             renderArchive();
-            addHistoryRecord(`Վերականգնվեց արխիվից՝ ${item.subject}`);
+            if (currentSelectedStudentId) loadStudentGradebook(currentSelectedStudentId);
+            addHistoryRecord(`Վերականգնվեց արխիվից՝ ${item.name || item.subject}`);
         }
 
-        // History Tab
         function addHistoryRecord(text) {
             if (!appData.history) appData.history = [];
             appData.history.unshift({
@@ -1310,6 +1392,7 @@
                 return;
             }
 
+            appData.history.execute = true;
             appData.history.forEach(item => {
                 const div = document.createElement('div');
                 div.className = 'flex items-start gap-4 relative pl-8';
@@ -1324,7 +1407,6 @@
             });
         }
 
-        // Global Stats Update
         function updateGlobalStats() {
             const totalStudents = appData.students.length;
             document.getElementById('statTotalStudents').textContent = totalStudents;
@@ -1350,7 +1432,6 @@
             document.getElementById('statAvgMog').textContent = avgMog;
         }
 
-        // Global Search
         function handleSearch(query) {
             const q = query.toLowerCase().trim();
             if (!q) {
