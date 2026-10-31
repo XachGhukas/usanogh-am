@@ -27,7 +27,7 @@
         @media print {
             .no-print { display: none !important; }
             body { background: white !important; }
-            #studentDetailModal { position: absolute !important; inset: 0 !important; background: white !important; max-height: none !important; width: 100% !important; }
+            #studentDetailModal { position: absolute !important; inset: 0 !important; background: white !important; max-height: none !important; width: 100% !important; overflow: visible !important; }
         }
     </style>
 </head>
@@ -44,7 +44,7 @@
                     <div>
                         <div class="flex items-center gap-1.5">
                             <span class="text-2xl font-extrabold tracking-tight text-blue-600">Ուսանող․եմ</span>
-                            <span class="bg-emerald-100 text-emerald-700 text-[10px] font-bold px-2 py-0.5 rounded-full">PRO v6.0</span>
+                            <span class="bg-emerald-100 text-emerald-700 text-[10px] font-bold px-2 py-0.5 rounded-full">PRO v7.0</span>
                         </div>
                         <p class="text-xs text-slate-500 font-medium">Համալսարանական էլեկտրոնային համակարգ</p>
                     </div>
@@ -233,11 +233,11 @@
         });
 
         function saveToLocalStorage() {
-            localStorage.setItem('usanog_am_data_v60', JSON.stringify(appData));
+            localStorage.setItem('usanog_am_data_v70', JSON.stringify(appData));
         }
 
         function loadFromLocalStorage() {
-            const saved = localStorage.getItem('usanog_am_data_v60');
+            const saved = localStorage.getItem('usanog_am_data_v70');
             if (saved) {
                 try { appData = JSON.parse(saved); } catch(e) { seedDemo(); }
             } else {
