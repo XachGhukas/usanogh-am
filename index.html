@@ -24,6 +24,12 @@
         body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #0f172a; }
         .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        
+        .grade-badge-excellent { background-color: #10b981; color: #ffffff; }
+        .grade-badge-good { background-color: #2563eb; color: #ffffff; }
+        .grade-badge-satisfactory { background-color: #f97316; color: #ffffff; }
+        .grade-badge-fail { background-color: #ef4444; color: #ffffff; }
+
         @media print {
             .no-print { display: none !important; }
             body { background: white !important; }
@@ -44,7 +50,7 @@
                     <div>
                         <div class="flex items-center gap-1.5">
                             <span class="text-2xl font-extrabold tracking-tight text-blue-600">Ուսանող․եմ</span>
-                            <span class="bg-emerald-100 text-emerald-700 text-[10px] font-bold px-2 py-0.5 rounded-full">PRO v7.0</span>
+                            <span class="bg-emerald-100 text-emerald-700 text-[10px] font-bold px-2 py-0.5 rounded-full">ORIGINAL v8.0</span>
                         </div>
                         <p class="text-xs text-slate-500 font-medium">Համալսարանական էլեկտրոնային համակարգ</p>
                     </div>
@@ -58,10 +64,10 @@
                 </div>
 
                 <div class="flex items-center gap-2">
-                    <button onclick="exportData()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-2.5 rounded-xl font-semibold text-xs flex items-center gap-1.5">
+                    <button onclick="exportData()" title="Պահպանել ֆայլը սարքերի միջև փոխանցելու համար" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-2.5 rounded-xl font-semibold text-xs flex items-center gap-1.5">
                         <i class="fa-solid fa-download"></i> Պահպանել
                     </button>
-                    <button onclick="document.getElementById('importFile').click()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-2.5 rounded-xl font-semibold text-xs flex items-center gap-1.5">
+                    <button onclick="document.getElementById('importFile').click()" title="Բեռնել ֆայլից" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-2.5 rounded-xl font-semibold text-xs flex items-center gap-1.5">
                         <i class="fa-solid fa-upload"></i> Բեռնել
                     </button>
                     <input type="file" id="importFile" accept=".json" onchange="importData(event)" class="hidden">
@@ -233,11 +239,11 @@
         });
 
         function saveToLocalStorage() {
-            localStorage.setItem('usanog_am_data_v70', JSON.stringify(appData));
+            localStorage.setItem('usanog_am_data_v80', JSON.stringify(appData));
         }
 
         function loadFromLocalStorage() {
-            const saved = localStorage.getItem('usanog_am_data_v70');
+            const saved = localStorage.getItem('usanog_am_data_v80');
             if (saved) {
                 try { appData = JSON.parse(saved); } catch(e) { seedDemo(); }
             } else {
@@ -280,7 +286,8 @@
                 populateStudentSelects();
                 if (appData.students.length > 0) {
                     if (!currentSelectedStudentId) currentSelectedStudentId = appData.students[0].id;
-                    document.getElementById('gradebookStudentSelect').value = currentSelectedStudentId;
+                    const sel = document.getElementById('gradebookStudentSelect');
+                    if(sel) sel.value = currentSelectedStudentId;
                     loadStudentGradebook(currentSelectedStudentId);
                 }
             } else if (tabName === 'archive') {
@@ -480,10 +487,10 @@
             if (!grid) return;
             grid.innerHTML = '';
             if (!appData.archiveItems || appData.archiveItems.length === 0) {
-                empty.classList.remove('hidden');
+                if(empty) empty.classList.remove('hidden');
                 return;
             }
-            empty.classList.add('hidden');
+            if(empty) empty.classList.add('hidden');
         }
 
         function addHistoryRecord(text) {
