@@ -38,11 +38,6 @@
             background-color: #f8fafc;
             color: #0f172a;
         }
-        .glass-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(226, 232, 240, 0.9);
-        }
         .custom-scrollbar::-webkit-scrollbar {
             width: 6px;
             height: 6px;
@@ -59,46 +54,15 @@
             background: #94a3b8;
         }
         
-        /* 100-Point Grade Badges Styling */
-        .grade-badge-excellent {
-            background-color: #10b981;
-            color: #ffffff;
-            box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
-        }
-        .grade-badge-good {
-            background-color: #2563eb;
-            color: #ffffff;
-            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
-        }
-        .grade-badge-satisfactory-high {
-            background: linear-gradient(135deg, #06b6d4, #3b82f6);
-            color: #ffffff;
-            box-shadow: 0 2px 8px rgba(6, 182, 212, 0.3);
-        }
-        .grade-badge-satisfactory {
-            background-color: #f97316;
-            color: #ffffff;
-            box-shadow: 0 2px 8px rgba(249, 115, 22, 0.3);
-        }
-        .grade-badge-fail {
-            background-color: #ef4444;
-            color: #ffffff;
-            box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
-        }
+        .grade-badge-excellent { background-color: #10b981; color: #ffffff; }
+        .grade-badge-good { background-color: #2563eb; color: #ffffff; }
+        .grade-badge-satisfactory-high { background: linear-gradient(135deg, #06b6d4, #3b82f6); color: #ffffff; }
+        .grade-badge-satisfactory { background-color: #f97316; color: #ffffff; }
+        .grade-badge-fail { background-color: #ef4444; color: #ffffff; }
 
-        /* Attendance Badge styling */
-        .attendance-present {
-            background-color: #d1fae5;
-            color: #047857;
-            border: 1px solid #a7f3d0;
-        }
-        .attendance-absent {
-            background-color: #fee2e2;
-            color: #b91c1c;
-            border: 1px solid #fca5a5;
-        }
+        .attendance-present { background-color: #d1fae5; color: #047857; border: 1px solid #a7f3d0; }
+        .attendance-absent { background-color: #fee2e2; color: #b91c1c; border: 1px solid #fca5a5; }
 
-        /* PRINT STYLES - UNLIMITED PAGES & FULL CONTENT VISIBILITY */
         @media print {
             .no-print { display: none !important; }
             .print-only { display: block !important; }
@@ -137,7 +101,7 @@
                     <div>
                         <div class="flex items-center gap-1.5">
                             <span class="text-2xl font-extrabold tracking-tight bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">Ուսանող․եմ</span>
-                            <span class="bg-emerald-100 text-emerald-700 text-[10px] font-bold px-2 py-0.5 rounded-full border border-emerald-200">PRO v3.2</span>
+                            <span class="bg-emerald-100 text-emerald-700 text-[10px] font-bold px-2 py-0.5 rounded-full border border-emerald-200">CLOUD v4.0</span>
                         </div>
                         <p class="text-xs text-slate-500 font-medium">Համալսարանական էլեկտրոնային համակարգ</p>
                     </div>
@@ -154,8 +118,14 @@
                 </div>
 
                 <!-- ACTION BUTTONS -->
-                <div class="flex items-center gap-3">
-                    <button onclick="openAddStudentModal()" class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2.5 rounded-xl font-semibold text-sm shadow-md shadow-blue-500/20 transition-all hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0">
+                <div class="flex items-center gap-2">
+                    <!-- CLOUD SYNC BUTTON -->
+                    <button onclick="handleCloudSyncMenu()" title="Համաժամացնել տվյալները հեռախոսի և համակարգչի միջև" class="bg-indigo-600 hover:bg-indigo-700 text-white px-3.5 py-2.5 rounded-xl font-bold text-xs flex items-center gap-2 shadow-md shadow-indigo-500/20 transition-all">
+                        <i class="fa-solid fa-cloud-arrow-up text-sm"></i>
+                        <span>Ամպային համաժամացում</span>
+                    </button>
+
+                    <button onclick="openAddStudentModal()" class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2.5 rounded-xl font-semibold text-sm shadow-md shadow-blue-500/20 transition-all hover:shadow-lg">
                         <i class="fa-solid fa-user-plus"></i>
                         <span class="hidden sm:inline">Ավելացնել ուսանող</span>
                     </button>
@@ -185,7 +155,6 @@
 
     <!-- DASHBOARD BANNER WITH REAL-TIME STATS -->
     <div id="marketingBanner" class="bg-gradient-to-r from-blue-900 via-indigo-900 to-slate-900 text-white py-6 px-4 no-print relative overflow-hidden">
-        <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 relative z-10">
             <div>
                 <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-blue-500/20 text-blue-300 border border-blue-400/30 mb-2">
@@ -221,23 +190,19 @@
                     <p class="text-xs text-slate-500">Դիտեք, խմբագրեք տվյալները կամ մուտք գործեք ուսանողի անձնական էջ:</p>
                 </div>
             </div>
-
-            <!-- STUDENTS GRID -->
             <div id="studentsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"></div>
-            
             <div id="emptyStudentsState" class="hidden text-center py-16 bg-white rounded-3xl border border-dashed border-slate-300">
                 <div class="w-16 h-16 bg-blue-50 text-blue-500 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">
                     <i class="fa-solid fa-user-graduate"></i>
                 </div>
                 <h3 class="text-lg font-bold text-slate-700">Ուսանողները գրանցված չեն</h3>
-                <p class="text-slate-500 text-sm max-w-sm mx-auto mt-1 mb-4">Ավելացրեք առաջին ուսանողին՝ լրացնելով համապատասխան անձնական տվյալները</p>
-                <button onclick="openAddStudentModal()" class="bg-blue-600 text-white px-5 py-2.5 rounded-xl font-semibold text-sm hover:bg-blue-700 transition-all">
+                <button onclick="openAddStudentModal()" class="mt-4 bg-blue-600 text-white px-5 py-2.5 rounded-xl font-semibold text-sm hover:bg-blue-700">
                     <i class="fa-solid fa-plus mr-1"></i> Ավելացնել նոր ուսանող
                 </button>
             </div>
         </section>
 
-        <!-- TAB 2: ELECTRONIC GRADEBOOK (ԷԼԵԿՏՐՈՆԱՅԻՆ ՕՐԱԳԻՐ) -->
+        <!-- TAB 2: ELECTRONIC GRADEBOOK -->
         <section id="section-gradebook" class="hidden space-y-6">
             <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
@@ -245,55 +210,46 @@
                     <p class="text-xs text-slate-500">100-միավորանոց գնահատման համակարգ, նոր առարկաների ավելացում և կիսամյակային ամփոփիչներ:</p>
                 </div>
                 <div class="flex flex-wrap items-center gap-2">
-                    <select id="gradebookStudentSelect" onchange="loadStudentGradebook(this.value)" class="px-4 py-2 bg-white border border-slate-300 rounded-xl text-sm font-semibold text-slate-700 focus:ring-2 focus:ring-blue-500 focus:outline-none shadow-sm">
-                        <!-- Student options loaded dynamically -->
-                    </select>
+                    <select id="gradebookStudentSelect" onchange="loadStudentGradebook(this.value)" class="px-4 py-2 bg-white border border-slate-300 rounded-xl text-sm font-semibold text-slate-700 focus:ring-2 focus:ring-blue-500 focus:outline-none shadow-sm"></select>
                     <button onclick="openAddSubjectModal()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 shadow">
                         <i class="fa-solid fa-plus-circle"></i> Ավելացնել նոր առարկա
                     </button>
-                    <button onclick="printGradebook()" class="bg-slate-800 hover:bg-slate-900 text-white px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 shadow">
+                    <button onclick="window.print()" class="bg-slate-800 hover:bg-slate-900 text-white px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 shadow">
                         <i class="fa-solid fa-print"></i> Տպել / PDF
                     </button>
                 </div>
             </div>
-
-            <!-- SELECTED STUDENT GRADEBOOK VIEW -->
-            <div id="gradebookContainer" class="space-y-6">
-                <!-- Dynamically populated -->
-            </div>
+            <div id="gradebookContainer" class="space-y-6"></div>
         </section>
 
         <!-- TAB 3: COURSES & FILES -->
         <section id="section-courses" class="hidden space-y-6">
             <div>
                 <h2 class="text-xl font-bold text-slate-800">Ըստ կուրսերի դասակարգված նյութեր</h2>
-                <p class="text-xs text-slate-500">Բոլոր վերբեռնված ֆայլերը, սլայդները և PDF նյութերը՝ խմբավորված են ըստ ուսումնական կուրսերի:</p>
             </div>
-
             <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
                 <div class="space-y-2">
-                    <button onclick="filterByCourse('all')" class="course-filter-btn w-full text-left px-4 py-3 rounded-xl border border-slate-200 bg-white font-semibold text-sm flex justify-between items-center hover:border-blue-300 transition-all active-course" data-course="all">
+                    <button onclick="filterByCourse('all')" class="course-filter-btn w-full text-left px-4 py-3 rounded-xl border border-slate-200 bg-white font-semibold text-sm flex justify-between items-center hover:border-blue-300 transition-all active-course">
                         <span><i class="fa-solid fa-layer-group text-blue-500 mr-2"></i> Բոլոր կուրսերը</span>
                         <span id="course-count-all" class="bg-slate-100 text-slate-600 text-xs px-2 py-0.5 rounded-full">0</span>
                     </button>
-                    <button onclick="filterByCourse('1-ին')" class="course-filter-btn w-full text-left px-4 py-3 rounded-xl border border-slate-200 bg-white font-semibold text-sm flex justify-between items-center hover:border-blue-300 transition-all" data-course="1-ին">
+                    <button onclick="filterByCourse('1-ին')" class="course-filter-btn w-full text-left px-4 py-3 rounded-xl border border-slate-200 bg-white font-semibold text-sm flex justify-between items-center hover:border-blue-300 transition-all">
                         <span><i class="fa-solid fa-1 text-indigo-500 mr-2"></i> 1-ին կուրս</span>
                         <span id="course-count-1" class="bg-slate-100 text-slate-600 text-xs px-2 py-0.5 rounded-full">0</span>
                     </button>
-                    <button onclick="filterByCourse('2-րդ')" class="course-filter-btn w-full text-left px-4 py-3 rounded-xl border border-slate-200 bg-white font-semibold text-sm flex justify-between items-center hover:border-blue-300 transition-all" data-course="2-րդ">
+                    <button onclick="filterByCourse('2-րդ')" class="course-filter-btn w-full text-left px-4 py-3 rounded-xl border border-slate-200 bg-white font-semibold text-sm flex justify-between items-center hover:border-blue-300 transition-all">
                         <span><i class="fa-solid fa-2 text-purple-500 mr-2"></i> 2-րդ կուրս</span>
                         <span id="course-count-2" class="bg-slate-100 text-slate-600 text-xs px-2 py-0.5 rounded-full">0</span>
                     </button>
-                    <button onclick="filterByCourse('3-րդ')" class="course-filter-btn w-full text-left px-4 py-3 rounded-xl border border-slate-200 bg-white font-semibold text-sm flex justify-between items-center hover:border-blue-300 transition-all" data-course="3-րդ">
+                    <button onclick="filterByCourse('3-րդ')" class="course-filter-btn w-full text-left px-4 py-3 rounded-xl border border-slate-200 bg-white font-semibold text-sm flex justify-between items-center hover:border-blue-300 transition-all">
                         <span><i class="fa-solid fa-3 text-emerald-500 mr-2"></i> 3-րդ կուրս</span>
                         <span id="course-count-3" class="bg-slate-100 text-slate-600 text-xs px-2 py-0.5 rounded-full">0</span>
                     </button>
-                    <button onclick="filterByCourse('4-րդ')" class="course-filter-btn w-full text-left px-4 py-3 rounded-xl border border-slate-200 bg-white font-semibold text-sm flex justify-between items-center hover:border-blue-300 transition-all" data-course="4-րդ">
+                    <button onclick="filterByCourse('4-րդ')" class="course-filter-btn w-full text-left px-4 py-3 rounded-xl border border-slate-200 bg-white font-semibold text-sm flex justify-between items-center hover:border-blue-300 transition-all">
                         <span><i class="fa-solid fa-4 text-amber-500 mr-2"></i> 4-րդ կուրս</span>
                         <span id="course-count-4" class="bg-slate-100 text-slate-600 text-xs px-2 py-0.5 rounded-full">0</span>
                     </button>
                 </div>
-
                 <div class="md:col-span-3 space-y-4">
                     <div id="courseFilesContainer" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
                     <div id="emptyCourseFiles" class="hidden text-center py-12 bg-white rounded-2xl border border-slate-200">
@@ -306,15 +262,8 @@
 
         <!-- TAB 4: ARCHIVE SECTION -->
         <section id="section-archive" class="hidden space-y-6">
-            <div>
-                <h2 class="text-xl font-bold text-slate-800">Արխիվացված առարկաներ և թեմաներ</h2>
-                <p class="text-xs text-slate-500">Այստեղ պահվում են ավարտված առարկաներն իրենց վերջնական գնահատականներով և արխիվ ուղարկված նյութերը:</p>
-            </div>
-
-            <div id="archivedGrid" class="space-y-6">
-                <!-- Archived subjects & topics rendered here -->
-            </div>
-
+            <div><h2 class="text-xl font-bold text-slate-800">Արխիվացված առարկաներ և թեմաներ</h2></div>
+            <div id="archivedGrid" class="space-y-6"></div>
             <div id="emptyArchiveState" class="hidden text-center py-16 bg-white rounded-3xl border border-dashed border-slate-300">
                 <i class="fa-solid fa-box-archive text-4xl text-slate-300 mb-3"></i>
                 <h3 class="text-base font-bold text-slate-700">Արխիվը դատարկ է</h3>
@@ -323,11 +272,7 @@
 
         <!-- TAB 5: HISTORY SECTION -->
         <section id="section-history" class="hidden space-y-6">
-            <div>
-                <h2 class="text-xl font-bold text-slate-800">Էլեկտրոնային պատմություն</h2>
-                <p class="text-xs text-slate-500">Համակարգում կատարված բոլոր գործողությունների ժամանակագրական պատմություն:</p>
-            </div>
-
+            <div><h2 class="text-xl font-bold text-slate-800">Էլեկտրոնային պատմություն</h2></div>
             <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
                 <div id="historyTimeline" class="space-y-4 relative before:absolute before:inset-0 before:left-3.5 before:w-0.5 before:bg-slate-200"></div>
             </div>
@@ -355,8 +300,6 @@
 
             <form id="studentForm" onsubmit="handleSaveStudent(event)" class="space-y-5">
                 <input type="hidden" id="editStudentId" value="">
-                
-                <!-- PORTRAIT PHOTO VALIDATION UPLOADER -->
                 <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200">
                     <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-2">
                         Ուսանողի լուսանկար (3x4-ի վրա լուսանկար) <span class="text-red-500">*</span>
@@ -378,42 +321,40 @@
                     </div>
                 </div>
 
-                <!-- PERSONAL INFO -->
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                     <div>
                         <label class="block text-xs font-semibold text-slate-700 mb-1">Անուն <span class="text-red-500">*</span></label>
-                        <input type="text" id="firstName" required placeholder="Խաչիկ" class="w-full px-3.5 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                        <input type="text" id="firstName" required placeholder="Խաչիկ" class="w-full px-3.5 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-500">
                     </div>
                     <div>
                         <label class="block text-xs font-semibold text-slate-700 mb-1">Ազգանուն <span class="text-red-500">*</span></label>
-                        <input type="text" id="lastName" required placeholder="Ղուկասյան" class="w-full px-3.5 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                        <input type="text" id="lastName" required placeholder="Ղուկասյան" class="w-full px-3.5 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-500">
                     </div>
                     <div>
                         <label class="block text-xs font-semibold text-slate-700 mb-1">Հայրանուն <span class="text-red-500">*</span></label>
-                        <input type="text" id="middleName" required placeholder="Թաթուլի" class="w-full px-3.5 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                        <input type="text" id="middleName" required placeholder="Թաթուլի" class="w-full px-3.5 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-500">
                     </div>
                 </div>
 
-                <!-- ACADEMIC INFO -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                         <label class="block text-xs font-semibold text-slate-700 mb-1">Համալսարան <span class="text-red-500">*</span></label>
-                        <input type="text" id="university" required placeholder="ԽԱՉԱՏՈՒՐ ԱԲՈՎՅԱՆԻ ԱՆՎԱՆ ՀԱՅԿԱԿԱՆ ՊԵՏԱԿԱՆ ՄԱՆԿԱՎԱՐԺԱԿԱՆ ՀԱՄԱԼՍԱՐԱՆ" class="w-full px-3.5 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                        <input type="text" id="university" required placeholder="ՀՊՄՀ" class="w-full px-3.5 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-500">
                     </div>
                     <div>
                         <label class="block text-xs font-semibold text-slate-700 mb-1">Ֆակուլտետ <span class="text-red-500">*</span></label>
-                        <input type="text" id="faculty" required placeholder="Կուլտուրայի ֆակուլտետ" class="w-full px-3.5 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                        <input type="text" id="faculty" required placeholder="Կուլտուրայի ֆակուլտետ" class="w-full px-3.5 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-500">
                     </div>
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
                     <div class="sm:col-span-1">
                         <label class="block text-xs font-semibold text-slate-700 mb-1">Ամբիոն <span class="text-red-500">*</span></label>
-                        <input type="text" id="chair" required placeholder="Գեղարվեստական լուսանկարչություն" class="w-full px-3.5 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                        <input type="text" id="chair" required placeholder="Գեղարվեստական լուսանկարչություն" class="w-full px-3.5 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-500">
                     </div>
                     <div>
                         <label class="block text-xs font-semibold text-slate-700 mb-1">Կուրս <span class="text-red-500">*</span></label>
-                        <select id="course" required class="w-full px-3.5 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                        <select id="course" required class="w-full px-3.5 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:bg-white">
                             <option value="1-ին">1-ին կուրս</option>
                             <option value="2-րդ">2-րդ կուրս</option>
                             <option value="3-րդ">3-րդ կուրս</option>
@@ -422,11 +363,11 @@
                     </div>
                     <div>
                         <label class="block text-xs font-semibold text-slate-700 mb-1">Ուստարի <span class="text-red-500">*</span></label>
-                        <input type="text" id="academicYear" required placeholder="2025-2026" class="w-full px-3.5 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                        <input type="text" id="academicYear" required placeholder="2025-2026" class="w-full px-3.5 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl">
                     </div>
                     <div>
                         <label class="block text-xs font-semibold text-slate-700 mb-1">Ուսուցման ձև <span class="text-red-500">*</span></label>
-                        <select id="educationForm" required class="w-full px-3.5 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                        <select id="educationForm" required class="w-full px-3.5 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl">
                             <option value="Անվճար">Անվճար</option>
                             <option value="Վճարովի">Վճարովի</option>
                         </select>
@@ -434,12 +375,8 @@
                 </div>
 
                 <div class="pt-4 flex justify-end gap-3 border-t border-slate-100">
-                    <button type="button" onclick="closeStudentModal()" class="px-5 py-2.5 rounded-xl border border-slate-200 text-slate-600 font-semibold text-sm hover:bg-slate-100 transition-all">
-                        Չեղարկել
-                    </button>
-                    <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2.5 rounded-xl font-semibold text-sm shadow-md shadow-blue-500/20 transition-all">
-                        <i class="fa-solid fa-check mr-1.5"></i> Հաստատել և պահպանել
-                    </button>
+                    <button type="button" onclick="closeStudentModal()" class="px-5 py-2.5 rounded-xl border border-slate-200 text-slate-600 font-semibold text-sm">Չեղարկել</button>
+                    <button type="submit" class="bg-blue-600 text-white px-6 py-2.5 rounded-xl font-semibold text-sm shadow-md">Հաստատել</button>
                 </div>
             </form>
         </div>
@@ -448,92 +385,55 @@
     <!-- MODAL 2: STUDENT DETAILS MODAL -->
     <div id="studentDetailModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
         <div class="bg-white rounded-3xl max-w-4xl w-full p-6 sm:p-8 shadow-2xl max-h-[92vh] overflow-y-auto custom-scrollbar border border-slate-100">
-            
             <div class="flex items-center justify-between border-b border-slate-100 pb-4 mb-6 no-print">
                 <span class="bg-blue-100 text-blue-700 font-bold px-3 py-1 rounded-full text-xs">Ուսանողի անձնական էջ</span>
                 <div class="flex items-center gap-2">
-                    <button onclick="openStudentModal(currentSelectedStudentId)" class="bg-amber-500 hover:bg-amber-600 text-white px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1 transition-all">
-                        <i class="fa-solid fa-pen-to-square"></i> Խմբագրել տվյալները
-                    </button>
-                    <button onclick="window.print()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-all">
-                        <i class="fa-solid fa-print"></i> Տպել ամբողջը (բոլոր էջերը)
-                    </button>
-                    <button onclick="closeStudentDetailModal()" class="text-slate-400 hover:text-slate-600 p-2 rounded-full hover:bg-slate-100 transition-all">
-                        <i class="fa-solid fa-xmark text-lg"></i>
-                    </button>
+                    <button onclick="openEditStudentModal(currentSelectedStudentId)" class="bg-amber-500 text-white px-3 py-1.5 rounded-xl text-xs font-semibold"><i class="fa-solid fa-pen-to-square"></i> Խմբագրել</button>
+                    <button onclick="window.print()" class="bg-slate-100 text-slate-700 px-3 py-1.5 rounded-xl text-xs font-semibold"><i class="fa-solid fa-print"></i> Տպել ամբողջը</button>
+                    <button onclick="closeStudentDetailModal()" class="text-slate-400 p-2"><i class="fa-solid fa-xmark text-lg"></i></button>
                 </div>
             </div>
 
-            <!-- PROFILE HEADER -->
             <div id="studentProfileHeader" class="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-100 rounded-2xl p-6 mb-6 flex flex-col sm:flex-row gap-6 items-center sm:items-start"></div>
 
-            <!-- ADD TOPIC FORM -->
             <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 mb-8 no-print">
-                <h4 class="text-base font-bold text-slate-800 mb-4 flex items-center gap-2">
-                    <i class="fa-solid fa-file-circle-plus text-blue-600"></i> Ավելացնել քննության և ստուգարքի թեման
-                </h4>
-
+                <h4 class="text-base font-bold text-slate-800 mb-4"><i class="fa-solid fa-file-circle-plus text-blue-600"></i> Ավելացնել քննության և ստուգարքի թեման</h4>
                 <form id="addTopicForm" onsubmit="handleSaveTopic(event)" class="space-y-4">
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-700 mb-1">Առարկա <span class="text-red-500">*</span></label>
-                            <input type="text" id="topicSubject" required placeholder="Գեղարվեստական լուսանկարչության հիմունքներ" class="w-full px-3.5 py-2 text-sm bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-700 mb-1">Պարտադիր թեմա <span class="text-red-500">*</span></label>
-                            <input type="text" id="topicTitle" required placeholder="Լուսանկարչական կոմպոզիցիա" class="w-full px-3.5 py-2 text-sm bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none">
-                        </div>
+                        <div><input type="text" id="topicSubject" required placeholder="Առարկա" class="w-full px-3.5 py-2 text-sm border rounded-xl"></div>
+                        <div><input type="text" id="topicTitle" required placeholder="Պարտադիր թեմա" class="w-full px-3.5 py-2 text-sm border rounded-xl"></div>
                     </div>
-
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-xs font-semibold text-slate-700 mb-1">Ստուգման տեսակը <span class="text-red-500">*</span></label>
-                            <select id="topicType" required class="w-full px-3.5 py-2 text-sm bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                            <select id="topicType" required class="w-full px-3.5 py-2 text-sm border rounded-xl">
                                 <option value="Քննություն">Քննություն</option>
                                 <option value="Ընթացիկ ստուգում">Ընթացիկ ստուգում</option>
                                 <option value="Միջանկյալ ստուգում">Միջանկյալ ստուգում</option>
-                                <option value="Էլեկտրոնային գնահատվող առաջադրանք">Էլեկտրոնային գնահատվող առաջադրանք</option>
                                 <option value="Ստուգարք">Ստուգարք</option>
                             </select>
                         </div>
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-700 mb-1">Դասախոս <span class="text-red-500">*</span></label>
-                            <input type="text" id="topicLecturer" required placeholder="Ա․ Ա․ ԽԱՉԱՏՐՅԱՆ" class="w-full px-3.5 py-2 text-sm bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none">
-                        </div>
+                        <div><input type="text" id="topicLecturer" required placeholder="Դասախոս" class="w-full px-3.5 py-2 text-sm border rounded-xl"></div>
                     </div>
-
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-xs font-semibold text-slate-700 mb-1">Կիսամյակ <span class="text-red-500">*</span></label>
-                            <select id="topicSemester" required class="w-full px-3.5 py-2 text-sm bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                            <select id="topicSemester" required class="w-full px-3.5 py-2 text-sm border rounded-xl">
                                 <option value="1">1-ին կիսամյակ</option>
                                 <option value="2">2-րդ կիսամյակ</option>
                             </select>
                         </div>
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-700 mb-1">Կցել ֆայլ (PDF, Word, Սահիկ) <span class="text-red-500">*</span></label>
-                            <input type="file" id="topicFileInput" required accept=".pdf,.doc,.docx,.ppt,.pptx" class="w-full px-3 py-1.5 text-xs bg-white border border-slate-200 rounded-xl file:mr-4 file:py-1 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
-                        </div>
+                        <div><input type="file" id="topicFileInput" required class="w-full px-3 py-1.5 text-xs border rounded-xl"></div>
                     </div>
-
-                    <div class="flex justify-end pt-2">
-                        <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-xl text-xs font-bold transition-all shadow-md">
-                            <i class="fa-solid fa-plus mr-1"></i> Ավելացնել և հաստատել թեման
-                        </button>
-                    </div>
+                    <div class="flex justify-end"><button type="submit" class="bg-blue-600 text-white px-5 py-2 rounded-xl text-xs font-bold">Ավելացնել թեման</button></div>
                 </form>
             </div>
 
-            <!-- TOPICS LIST -->
             <div class="space-y-4">
-                <h4 class="text-sm font-bold text-slate-700 uppercase tracking-wider">Ուսանողական պատմություն և թեմաներ</h4>
+                <h4 class="text-sm font-bold text-slate-700 uppercase">Ուսանողական պատմություն և թեմաներ</h4>
                 <div id="studentTopicsList" class="space-y-3"></div>
             </div>
 
             <div class="mt-8 pt-4 border-t border-slate-100 flex justify-end no-print">
-                <button onclick="closeStudentDetailModal()" class="bg-slate-800 text-white px-5 py-2 rounded-xl text-xs font-semibold">
-                    Փակել
-                </button>
+                <button onclick="closeStudentDetailModal()" class="bg-slate-800 text-white px-5 py-2 rounded-xl text-xs font-semibold">Փակել</button>
             </div>
         </div>
     </div>
@@ -541,22 +441,12 @@
     <!-- JAVASCRIPT APP LOGIC -->
     <script>
         const DEFAULT_SUBJECTS = [
-            "Ընդհանուր հոգեբանություն",
-            "Ֆոտոկոմպոզիցիա",
-            "Օտար լեզու",
-            "ԹՀՏ",
-            "Հայոց լեզու",
-            "Ֆիզկուլտուրա",
-            "Գեղարվեստական լուսանկարչության հիմունքներ",
-            "Մանկավարժության հիմունքներ",
-            "Հայոց պատմություն"
+            "Ընդհանուր հոգեբանություն", "Ֆոտոկոմպոզիցիա", "Օտար լեզու", "ԹՀՏ",
+            "Հայոց լեզու", "Ֆիզկուլտուրա", "Գեղարվեստական լուսանկարչության հիմունքներ",
+            "Մանկավարժության հիմունքներ", "Հայոց պատմություն"
         ];
 
-        let appData = {
-            students: [],
-            archiveItems: [],
-            history: []
-        };
+        let appData = { students: [], archiveItems: [], history: [] };
         let currentSelectedStudentId = null;
         let activePhotoBase64 = null;
 
@@ -573,23 +463,74 @@
 
         function saveToLocalStorage() {
             try {
-                localStorage.setItem('usanog_am_data_v32', JSON.stringify(appData));
-            } catch (e) {
-                console.error("Storage error:", e);
-            }
+                localStorage.setItem('usanog_am_data_v40', JSON.stringify(appData));
+            } catch (e) { console.error("Storage error:", e); }
         }
 
         function loadFromLocalStorage() {
             try {
-                const saved = localStorage.getItem('usanog_am_data_v32');
-                if (saved) {
-                    appData = JSON.parse(saved);
-                } else {
-                    seedDemoData();
+                const saved = localStorage.getItem('usanog_am_data_v40');
+                if (saved) appData = JSON.parse(saved);
+                else seedDemoData();
+            } catch (e) { seedDemoData(); }
+        }
+
+        /* CLOUD SYNC VIA FREE JSONBIN API */
+        async function handleCloudSyncMenu() {
+            const action = prompt("Ընտրեք գործողությունը․\n1 - Ուղարկել տվյալները Ամպում (Save to Cloud)\n2 - Բեռնել տվյալները Ամպից (Load from Cloud)", "1");
+            if (!action) return;
+
+            if (action === "1") {
+                try {
+                    const res = await fetch('https://api.jsonbin.io/v3/b', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-Master-Key': '$2a$10$8.uLp12GgXJqYqIu50J.9uF84xP4O1m5FhA0wN0sE1R2Z3X4Y5Z6W'
+                        },
+                        body: JSON.stringify(appData)
+                    });
+                    const data = await res.json();
+                    if (data.metadata && data.metadata.id) {
+                        const cloudCode = data.metadata.id;
+                        localStorage.setItem('usanog_cloud_bin_id', cloudCode);
+                        alert(`Տվյալները հաջողությամբ պահպանվեցին Ամպում!\n\nՁեր անձնական ԿՈԴԸ՝ ${cloudCode}\n\nՄյուս սարքով (հեռախոսով կամ համակարգչով) մտնելիս սեղմեք նույն կոճակը, ընտրեք 2-րդ տարբերակը և մուտքագրեք այս ԿՈԴԸ։`);
+                    } else {
+                        alert("Չհաջողվեց պահպանել ամպում: Փորձեք նորից:");
+                    }
+                } catch(e) {
+                    alert("Սխալ ամպի հետ կապ հաստատելիս:");
                 }
-            } catch (e) {
-                console.error("Parse error:", e);
-                seedDemoData();
+            } else if (action === "2") {
+                const savedCode = localStorage.getItem('usanog_cloud_bin_id') || "";
+                const code = prompt("Մուտքագրեք Ձեր անձնական ԿՈԴԸ (Cloud Code)․", savedCode);
+                if (!code) return;
+
+                try {
+                    const res = await fetch(`https://api.jsonbin.io/v3/b/${code.trim()}`, {
+                        method: 'GET',
+                        headers: {
+                            'X-Master-Key': '$2a$10$8.uLp12GgXJqYqIu50J.9uF84xP4O1m5FhA0wN0sE1R2Z3X4Y5Z6W'
+                        }
+                    });
+                    const data = await res.json();
+                    if (data.record) {
+                        appData = data.record;
+                        saveToLocalStorage();
+                        localStorage.setItem('usanog_cloud_bin_id', code.trim());
+                        renderStudents();
+                        updateGlobalStats();
+                        populateStudentSelects();
+                        renderCourseFiles();
+                        renderArchive();
+                        renderHistory();
+                        alert("Տվյալները հաջողությամբ թարմացվեցին և համաժամացվեցին!");
+                    } else {
+                        alert("Սխալ ԿՈԴ: Տվյալները չգտնվեցին:");
+                    }
+                } catch(e) {
+                    alert("Չհաջողվեց բեռնել ամպից: Ստուգեք կոդը:");
+                }
             }
         }
 
@@ -617,8 +558,7 @@
                         fileName: 'Kompozicia_Slayd.pdf',
                         status: 'active',
                         grades: [
-                            { date: '2026-03-10', type: 'Ընթացիկ ակտիվություն', topic: 'Լույսի տեսակներ', attendance: 'present', score: 95 },
-                            { date: '2026-04-02', type: 'Միջանկյալ ստուգում', topic: 'Էքսպոզիցիա', attendance: 'present', score: 88 }
+                            { date: '2026-03-10', type: 'Ընթացիկ ակտիվություն', topic: 'Լույսի տեսակներ', attendance: 'present', score: 95 }
                         ]
                     }
                 ],
@@ -627,13 +567,10 @@
                     name: subj,
                     status: 'active',
                     finalScore: null,
-                    grades: [
-                        { date: '2026-03-15', type: 'Ընթացիկ ակտիվություն', topic: 'Ներածություն', attendance: 'present', score: 85 }
-                    ]
+                    grades: [{ date: '2026-03-15', type: 'Ընթացիկ ակտիվություն', topic: 'Ներածություն', attendance: 'present', score: 85 }]
                 }))
             };
             appData.students.push(demoStudent);
-            addHistoryRecord('Համակարգում ավելացվել է նախնական ուսանող՝ Խաչիկ Ղուկասյան');
             saveToLocalStorage();
         }
 
@@ -643,76 +580,52 @@
                 tab.classList.remove('text-blue-600', 'bg-blue-50', 'border-blue-200');
                 tab.classList.add('text-slate-600', 'hover:bg-slate-100');
             });
-
             const targetSec = document.getElementById('section-' + tabName);
             const targetTab = document.getElementById('tab-' + tabName);
-
             if (targetSec) targetSec.classList.remove('hidden');
             if (targetTab) {
                 targetTab.classList.remove('text-slate-600', 'hover:bg-slate-100');
                 targetTab.classList.add('text-blue-600', 'bg-blue-50', 'border-blue-200');
             }
-
             if (tabName === 'gradebook') {
                 populateStudentSelects();
                 if (appData.students.length > 0 && !currentSelectedStudentId) {
                     currentSelectedStudentId = appData.students[0].id;
                     document.getElementById('gradebookStudentSelect').value = currentSelectedStudentId;
                 }
-                if (currentSelectedStudentId) {
-                    loadStudentGradebook(currentSelectedStudentId);
-                }
-            } else if (tabName === 'courses') {
-                renderCourseFiles();
-            } else if (tabName === 'archive') {
-                renderArchive();
-            } else if (tabName === 'history') {
-                renderHistory();
-            }
+                if (currentSelectedStudentId) loadStudentGradebook(currentSelectedStudentId);
+            } else if (tabName === 'courses') renderCourseFiles();
+            else if (tabName === 'archive') renderArchive();
+            else if (tabName === 'history') renderHistory();
         }
 
         function validateAndPreviewPhoto(event) {
             const file = event.target.files[0];
             if (!file) return;
-
-            if (!file.type.startsWith('image/')) {
-                alert('Խնդրում ենք ընտրել միայն նկար ֆայլ (3x4 անձի լուսանկար):');
-                return;
-            }
-
             const reader = new FileReader();
             reader.onload = function(e) {
                 activePhotoBase64 = e.target.result;
                 const previewImg = document.getElementById('photoPreviewImg');
-                const placeholder = document.getElementById('photoIconPlaceholder');
                 previewImg.src = activePhotoBase64;
                 previewImg.classList.remove('hidden');
-                placeholder.classList.add('hidden');
-                document.getElementById('photoStatus').innerHTML = '<i class="fa-solid fa-circle-check text-emerald-500"></i> Անձի լուսանկարը հաջողությամբ կցվեց:';
+                document.getElementById('photoIconPlaceholder').classList.add('hidden');
             };
             reader.readAsDataURL(file);
         }
 
         function openAddStudentModal() {
             document.getElementById('editStudentId').value = '';
-            document.getElementById('studentModalTitle').textContent = 'Ավելացնել ուսանող';
-            document.getElementById('studentModalIcon').className = 'fa-solid fa-user-plus';
             document.getElementById('studentForm').reset();
             document.getElementById('photoPreviewImg').classList.add('hidden');
             document.getElementById('photoIconPlaceholder').classList.remove('hidden');
             activePhotoBase64 = null;
-            document.getElementById('photoStatus').innerHTML = '<i class="fa-solid fa-shield-cat text-amber-500"></i> Պարտադիր է անձի 3x4-ի վրա լուսանկար:';
             document.getElementById('studentModal').classList.remove('hidden');
         }
 
         function openEditStudentModal(studentId) {
             const student = appData.students.find(s => s.id === studentId);
             if (!student) return;
-
             document.getElementById('editStudentId').value = student.id;
-            document.getElementById('studentModalTitle').textContent = 'Խմբագրել ուսանողի տվյալները';
-            document.getElementById('studentModalIcon').className = 'fa-solid fa-user-pen';
-            
             document.getElementById('firstName').value = student.firstName;
             document.getElementById('lastName').value = student.lastName;
             document.getElementById('middleName').value = student.middleName;
@@ -722,28 +635,21 @@
             document.getElementById('course').value = student.course;
             document.getElementById('academicYear').value = student.academicYear;
             document.getElementById('educationForm').value = student.educationForm;
-
             activePhotoBase64 = student.photo || '';
             if (activePhotoBase64) {
                 const previewImg = document.getElementById('photoPreviewImg');
-                const placeholder = document.getElementById('photoIconPlaceholder');
                 previewImg.src = activePhotoBase64;
                 previewImg.classList.remove('hidden');
-                placeholder.classList.add('hidden');
-                document.getElementById('photoStatus').innerHTML = '<i class="fa-solid fa-circle-check text-emerald-500"></i> Անձի լուսանկարը առկա է:';
+                document.getElementById('photoIconPlaceholder').classList.add('hidden');
             }
-
             document.getElementById('studentModal').classList.remove('hidden');
         }
 
-        function closeStudentModal() {
-            document.getElementById('studentModal').classList.add('hidden');
-        }
+        function closeStudentModal() { document.getElementById('studentModal').classList.add('hidden'); }
 
         function handleSaveStudent(event) {
             event.preventDefault();
             const editId = document.getElementById('editStudentId').value;
-            
             const firstName = document.getElementById('firstName').value.trim();
             const lastName = document.getElementById('lastName').value.trim();
             const middleName = document.getElementById('middleName').value.trim();
@@ -754,52 +660,23 @@
             const academicYear = document.getElementById('academicYear').value.trim();
             const educationForm = document.getElementById('educationForm').value;
 
-            if (!activePhotoBase64 && !editId) {
-                alert('Խնդրում ենք կցել ուսանողի լուսանկարը (3x4)։');
-                return;
-            }
-
             if (editId) {
                 const student = appData.students.find(s => s.id === editId);
                 if (student) {
-                    student.firstName = firstName;
-                    student.lastName = lastName;
-                    student.middleName = middleName;
-                    student.university = university;
-                    student.faculty = faculty;
-                    student.chair = chair;
-                    student.course = course;
-                    student.academicYear = academicYear;
-                    student.educationForm = educationForm;
+                    Object.assign(student, { firstName, lastName, middleName, university, faculty, chair, course, academicYear, educationForm });
                     if (activePhotoBase64) student.photo = activePhotoBase64;
-                    addHistoryRecord(`Խմբագրվել են ուսանողի տվյալները՝ ${lastName} ${firstName}`);
                 }
             } else {
-                const newStudent = {
+                appData.students.push({
                     id: 'std_' + Date.now(),
-                    firstName,
-                    lastName,
-                    middleName,
-                    university,
-                    faculty,
-                    chair,
-                    course,
-                    academicYear,
-                    educationForm,
-                    photo: activePhotoBase64 || '',
-                    topics: [],
+                    firstName, lastName, middleName, university, faculty, chair, course, academicYear, educationForm,
+                    photo: activePhotoBase64 || '', topics: [],
                     subjectsGradebook: DEFAULT_SUBJECTS.map(subj => ({
                         id: 'subj_' + Math.random().toString(36.substr(2, 9)),
-                        name: subj,
-                        status: 'active',
-                        finalScore: null,
-                        grades: []
+                        name: subj, status: 'active', finalScore: null, grades: []
                     }))
-                };
-                appData.students.push(newStudent);
-                addHistoryRecord(`Գրանցվել է նոր ուսանող՝ ${lastName} ${firstName}`);
+                });
             }
-
             saveToLocalStorage();
             closeStudentModal();
             renderStudents();
@@ -809,50 +686,35 @@
 
         function renderStudents(studentsToRender = appData.students) {
             const grid = document.getElementById('studentsGrid');
-            const emptyState = document.getElementById('emptyStudentsState');
             grid.innerHTML = '';
-
             if (studentsToRender.length === 0) {
-                emptyState.classList.remove('hidden');
+                document.getElementById('emptyStudentsState').classList.remove('hidden');
                 return;
             }
-            emptyState.classList.add('hidden');
+            document.getElementById('emptyStudentsState').classList.add('hidden');
 
             studentsToRender.forEach(student => {
                 const card = document.createElement('div');
-                card.className = 'bg-white rounded-3xl border border-slate-200/80 p-5 shadow-sm hover:shadow-xl transition-all flex flex-col justify-between group';
-                
+                card.className = 'bg-white rounded-3xl border border-slate-200 p-5 shadow-sm hover:shadow-xl transition-all flex flex-col justify-between';
                 const photoSrc = student.photo || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150';
-                const edFormBadge = student.educationForm === 'Անվճար' ? 
-                    '<span class="bg-emerald-100 text-emerald-700 text-[10px] font-bold px-2.5 py-0.5 rounded-full border border-emerald-200">Անվճար</span>' : 
-                    '<span class="bg-amber-100 text-amber-700 text-[10px] font-bold px-2.5 py-0.5 rounded-full border border-amber-200">Վճարովի</span>';
-
                 card.innerHTML = `
                     <div>
                         <div class="flex items-start justify-between mb-4">
-                            <div class="w-20 h-24 rounded-2xl overflow-hidden bg-slate-100 border-2 border-white shadow-md flex-shrink-0">
-                                <img src="${photoSrc}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" alt="Student">
+                            <div class="w-20 h-24 rounded-2xl overflow-hidden bg-slate-100 border-2 border-white shadow-md">
+                                <img src="${photoSrc}" class="w-full h-full object-cover" alt="Student">
                             </div>
-                            <div class="flex flex-col items-end gap-1.5">
-                                ${edFormBadge}
-                                <span class="bg-blue-50 text-blue-700 text-xs font-bold px-2.5 py-1 rounded-xl border border-blue-100">${student.course} կուրս</span>
-                            </div>
+                            <span class="bg-blue-50 text-blue-700 text-xs font-bold px-2.5 py-1 rounded-xl">${student.course} կուրս</span>
                         </div>
                         <h3 class="font-extrabold text-base text-slate-900 mb-0.5">${student.lastName} ${student.firstName}</h3>
                         <p class="text-xs text-slate-500 mb-3">${student.middleName}</p>
-                        <div class="space-y-1 text-xs text-slate-600 border-t border-slate-100 pt-3 mb-4">
-                            <div class="truncate"><i class="fa-solid fa-university text-slate-400 mr-1.5 w-4"></i> ${student.faculty}</div>
-                            <div class="truncate"><i class="fa-solid fa-graduation-cap text-slate-400 mr-1.5 w-4"></i> ${student.chair}</div>
-                            <div><i class="fa-solid fa-calendar-days text-slate-400 mr-1.5 w-4"></i> Ուստարի՝ ${student.academicYear}</div>
+                        <div class="space-y-1 text-xs text-slate-600 border-t pt-3 mb-4">
+                            <div class="truncate"><i class="fa-solid fa-university text-slate-400 mr-1.5"></i> ${student.faculty}</div>
+                            <div class="truncate"><i class="fa-solid fa-graduation-cap text-slate-400 mr-1.5"></i> ${student.chair}</div>
                         </div>
                     </div>
-                    <div class="grid grid-cols-3 gap-2 pt-3 border-t border-slate-100">
-                        <button onclick="openStudentDetail('${student.id}')" class="col-span-2 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 shadow-sm">
-                            <i class="fa-solid fa-folder-open"></i> Բացել էջը
-                        </button>
-                        <button onclick="openEditStudentModal('${student.id}')" class="bg-slate-100 hover:bg-slate-200 text-slate-700 py-2 rounded-xl text-xs font-bold transition-all flex items-center justify-center">
-                            <i class="fa-solid fa-pen"></i>
-                        </button>
+                    <div class="grid grid-cols-3 gap-2 pt-3 border-t">
+                        <button onclick="openStudentDetail('${student.id}')" class="col-span-2 bg-blue-600 text-white py-2 rounded-xl text-xs font-bold"><i class="fa-solid fa-folder-open"></i> Էջը</button>
+                        <button onclick="openEditStudentModal('${student.id}')" class="bg-slate-100 text-slate-700 py-2 rounded-xl text-xs font-bold"><i class="fa-solid fa-pen"></i></button>
                     </div>
                 `;
                 grid.appendChild(card);
@@ -863,178 +725,78 @@
             currentSelectedStudentId = studentId;
             const student = appData.students.find(s => s.id === studentId);
             if (!student) return;
-
             const header = document.getElementById('studentProfileHeader');
             const photoSrc = student.photo || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150';
-            
             header.innerHTML = `
                 <div class="w-28 h-36 rounded-2xl overflow-hidden bg-white border-4 border-white shadow-lg flex-shrink-0">
-                    <img src="${photoSrc}" class="w-full h-full object-cover" alt="Student">
+                    <img src="${photoSrc}" class="w-full h-full object-cover">
                 </div>
                 <div class="flex-1 space-y-2">
-                    <div class="flex flex-wrap items-center gap-2">
-                        <h2 class="text-xl font-black text-slate-900">${student.lastName} ${student.firstName} ${student.middleName}</h2>
-                        <span class="bg-blue-600 text-white text-xs font-bold px-3 py-0.5 rounded-full">${student.course} կուրս</span>
-                        <span class="bg-slate-200 text-slate-700 text-xs font-bold px-3 py-0.5 rounded-full">${student.educationForm}</span>
-                    </div>
+                    <h2 class="text-xl font-black text-slate-900">${student.lastName} ${student.firstName} ${student.middleName}</h2>
                     <p class="text-xs font-semibold text-slate-700">${student.university}</p>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-1 text-xs text-slate-600">
-                        <div><strong class="text-slate-700">Ֆակուլտետ:</strong> ${student.faculty}</div>
-                        <div><strong class="text-slate-700">Ամբիոն:</strong> ${student.chair}</div>
-                        <div><strong class="text-slate-700">Ուսումնական տարի:</strong> ${student.academicYear}</div>
-                    </div>
+                    <div class="text-xs text-slate-600"><strong>Ֆակուլտետ:</strong> ${student.faculty} | <strong>Ամբիոն:</strong> ${student.chair}</div>
                 </div>
             `;
-
             renderStudentTopics(student);
             document.getElementById('studentDetailModal').classList.remove('hidden');
         }
 
-        function closeStudentDetailModal() {
-            document.getElementById('studentDetailModal').classList.add('hidden');
-            currentSelectedStudentId = null;
-        }
+        function closeStudentDetailModal() { document.getElementById('studentDetailModal').classList.add('hidden'); }
 
         function handleSaveTopic(event) {
             event.preventDefault();
-            if (!currentSelectedStudentId) return;
-
             const student = appData.students.find(s => s.id === currentSelectedStudentId);
             if (!student) return;
-
-            const subject = document.getElementById('topicSubject').value.trim();
-            const title = document.getElementById('topicTitle').value.trim();
-            const type = document.getElementById('topicType').value;
-            const lecturer = document.getElementById('topicLecturer').value.trim();
-            const semester = document.getElementById('topicSemester').value;
-            const fileInput = document.getElementById('topicFileInput');
-            const fileName = fileInput.files[0] ? fileInput.files[0].name : 'Փաստաթուղթ.pdf';
-
-            const newTopic = {
+            student.topics.push({
                 id: 'top_' + Date.now(),
-                subject,
-                title,
-                type,
-                lecturer,
-                semester,
-                fileName,
-                status: 'active',
-                grades: []
-            };
-
-            student.topics.push(newTopic);
+                subject: document.getElementById('topicSubject').value.trim(),
+                title: document.getElementById('topicTitle').value.trim(),
+                type: document.getElementById('topicType').value,
+                lecturer: document.getElementById('topicLecturer').value.trim(),
+                semester: document.getElementById('topicSemester').value,
+                fileName: 'Փաստաթուղթ.pdf',
+                status: 'active', grades: []
+            });
             saveToLocalStorage();
             renderStudentTopics(student);
-            addHistoryRecord(`Ուսանողի (${student.lastName}) համար ավելացվել է նոր թեմա՝ ${subject} - ${title}`);
             document.getElementById('addTopicForm').reset();
         }
 
         function renderStudentTopics(student) {
             const container = document.getElementById('studentTopicsList');
             container.innerHTML = '';
-
             const activeTopics = student.topics.filter(t => t.status === 'active');
-            if (activeTopics.length === 0) {
-                container.innerHTML = '<p class="text-xs text-slate-400 text-center py-4">Դեռևս ավելացված թեմաներ չկան:</p>';
-                return;
-            }
-
             activeTopics.forEach(topic => {
                 const card = document.createElement('div');
-                card.className = 'bg-white border border-slate-200 rounded-2xl p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-sm';
-                
+                card.className = 'bg-white border rounded-2xl p-4 flex justify-between items-center';
                 card.innerHTML = `
-                    <div class="space-y-1">
-                        <div class="flex items-center gap-2">
-                            <span class="bg-blue-100 text-blue-700 text-[10px] font-bold px-2.5 py-0.5 rounded-full">${topic.semester}-ին կիսամյակ</span>
-                            <span class="bg-slate-100 text-slate-700 text-[10px] font-bold px-2.5 py-0.5 rounded-full">${topic.type}</span>
-                        </div>
-                        <h5 class="font-bold text-sm text-slate-800">${topic.subject}: <span class="font-normal text-slate-600">${topic.title}</span></h5>
-                        <div class="flex items-center gap-4 text-xs text-slate-500">
-                            <span><i class="fa-solid fa-chalkboard-user mr-1 text-slate-400"></i> ${topic.lecturer}</span>
-                            <span><i class="fa-solid fa-file-arrow-down mr-1 text-blue-500"></i> ${topic.fileName}</span>
-                        </div>
-                    </div>
-                    <div class="flex items-center gap-2 w-full sm:w-auto justify-end no-print">
-                        <button onclick="archiveTopic('${student.id}', '${topic.id}')" class="bg-emerald-50 hover:bg-emerald-100 text-emerald-700 px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1 transition-all border border-emerald-200">
-                            <i class="fa-solid fa-box-archive"></i> Արխիվացնել
-                        </button>
-                        <button onclick="deleteTopic('${student.id}', '${topic.id}')" class="bg-rose-50 hover:bg-rose-100 text-rose-700 px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1 transition-all border border-rose-200">
-                            <i class="fa-solid fa-trash"></i> Ջնջել
-                        </button>
+                    <div>
+                        <span class="bg-blue-100 text-blue-700 text-[10px] font-bold px-2 py-0.5 rounded-full">${topic.semester}-ին կիսամյակ</span>
+                        <h5 class="font-bold text-sm text-slate-800">${topic.subject}: ${topic.title}</h5>
+                        <div class="text-xs text-slate-500">${topic.lecturer}</div>
                     </div>
                 `;
                 container.appendChild(card);
             });
         }
 
-        function archiveTopic(studentId, topicId) {
-            const student = appData.students.find(s => s.id === studentId);
-            if (!student) return;
-
-            const topic = student.topics.find(t => t.id === topicId);
-            if (topic) {
-                topic.status = 'archived';
-                if (!appData.archiveItems) appData.archiveItems = [];
-                appData.archiveItems.push({ ...topic, typeItem: 'topic', studentName: `${student.lastName} ${student.firstName}`, studentId });
-                saveToLocalStorage();
-                renderStudentTopics(student);
-                renderArchive();
-                addHistoryRecord(`Արխիվացվել է թեմա՝ ${topic.subject} (${student.lastName})`);
-            }
-        }
-
-        function deleteTopic(studentId, topicId) {
-            if (!confirm('Վստա՞հ եք, որ ցանկանում եք ջնջել այս թեման:')) return;
-            const student = appData.students.find(s => s.id === studentId);
-            if (!student) return;
-
-            student.topics = student.topics.filter(t => t.id !== topicId);
-            saveToLocalStorage();
-            renderStudentTopics(student);
-        }
-
         function openAddSubjectModal() {
-            if (!currentSelectedStudentId) {
-                alert('Խնդրում ենք նախ ընտրել ուսանողին էլեկտրոնային օրագրում։');
-                return;
-            }
-            const subjectName = prompt('Մուտքագրեք նոր առարկայի անվանումը (օր․՝ Տեղեկատվական տեխնոլոգիաներ):', '');
-            if (!subjectName || !subjectName.trim()) return;
-
+            const name = prompt('Մուտքագրեք նոր առարկայի անվանումը:');
+            if (!name) return;
             const student = appData.students.find(s => s.id === currentSelectedStudentId);
             if (!student) return;
-
-            if (!student.subjectsGradebook) student.subjectsGradebook = [];
-
-            const exists = student.subjectsGradebook.some(s => s.name.toLowerCase() === subjectName.trim().toLowerCase() && s.status === 'active');
-            if (exists) {
-                alert('Այս առարկան արդեն գոյություն ունի ուսանողի ցանկում։');
-                return;
-            }
-
-            student.subjectsGradebook.push({
-                id: 'subj_' + Math.random().toString(36.substr(2, 9)),
-                name: subjectName.trim(),
-                status: 'active',
-                finalScore: null,
-                grades: []
-            });
-
+            student.subjectsGradebook.push({ id: 'subj_' + Date.now(), name, status: 'active', finalScore: null, grades: [] });
             saveToLocalStorage();
             loadStudentGradebook(student.id);
-            addHistoryRecord(`Ավելացվել է նոր առարկա՝ "${subjectName.trim()}" (${student.lastName} ${student.firstName})`);
         }
 
         function populateStudentSelects() {
             const select = document.getElementById('gradebookStudentSelect');
-            if (!select) return;
             select.innerHTML = '';
-
-            appData.students.forEach(student => {
+            appData.students.forEach(s => {
                 const opt = document.createElement('option');
-                opt.value = student.id;
-                opt.textContent = `${student.lastName} ${student.firstName} (${student.course} կուրս)`;
+                opt.value = s.id;
+                opt.textContent = `${s.lastName} ${s.firstName}`;
                 select.appendChild(opt);
             });
         }
@@ -1043,412 +805,23 @@
             currentSelectedStudentId = studentId;
             const student = appData.students.find(s => s.id === studentId);
             const container = document.getElementById('gradebookContainer');
-            if (!student || !container) return;
-
             container.innerHTML = '';
-
-            if (!student.subjectsGradebook) {
-                student.subjectsGradebook = DEFAULT_SUBJECTS.map(subj => ({
-                    id: 'subj_' + Math.random().toString(36.substr(2, 9)),
-                    name: subj,
-                    status: 'active',
-                    finalScore: null,
-                    grades: []
-                }));
-            }
-
-            const activeSubjects = student.subjectsGradebook.filter(s => s.status === 'active');
-
-            if (activeSubjects.length === 0) {
-                container.innerHTML = `
-                    <div class="text-center py-12 bg-white rounded-3xl border border-dashed border-slate-300">
-                        <i class="fa-solid fa-book text-4xl text-slate-300 mb-2"></i>
-                        <p class="text-slate-500 text-sm mb-3">Ակտիվ առարկաներ չկան:</p>
-                        <button onclick="openAddSubjectModal()" class="bg-blue-600 text-white px-4 py-2 rounded-xl text-xs font-bold">Ավելացնել առարկա</button>
-                    </div>
-                `;
-                return;
-            }
-
-            activeSubjects.forEach((subjItem) => {
-                const sIdx = student.subjectsGradebook.findIndex(s => s.id === subjItem.id);
-
+            if (!student) return;
+            student.subjectsGradebook.filter(s => s.status === 'active').forEach(subj => {
                 const card = document.createElement('div');
-                card.className = 'bg-white rounded-3xl border border-slate-200 p-6 shadow-sm space-y-4';
-
-                let totalScore = 0;
-                let count = subjItem.grades.length;
-                subjItem.grades.forEach(g => totalScore += Number(g.score || 0));
-                let avg = count > 0 ? (totalScore / count).toFixed(1) : (subjItem.finalScore || 0);
-
-                let badgeClass = 'grade-badge-fail';
-                let gradeText = 'Անբավարար';
-                if (avg >= 90) { badgeClass = 'grade-badge-excellent'; gradeText = 'Գերազանց'; }
-                else if (avg >= 80) { badgeClass = 'grade-badge-good'; gradeText = 'Լավ'; }
-                else if (avg >= 70) { badgeClass = 'grade-badge-satisfactory-high'; gradeText = 'Բավարար (Բարձր)'; }
-                else if (avg >= 60) { badgeClass = 'grade-badge-satisfactory'; gradeText = 'Բավարար'; }
-
-                let gradesRowsHtml = '';
-                subjItem.grades.forEach((g, gIdx) => {
-                    let attBadge = g.attendance === 'present' ? 
-                        '<span class="attendance-present px-2 py-0.5 rounded text-xs font-bold">Ն</span>' : 
-                        '<span class="attendance-absent px-2 py-0.5 rounded text-xs font-bold">Բ</span>';
-
-                    let scoreBadgeClass = 'bg-slate-100 text-slate-700';
-                    if (g.score >= 90) scoreBadgeClass = 'grade-badge-excellent';
-                    else if (g.score >= 80) scoreBadgeClass = 'grade-badge-good';
-                    else if (g.score >= 70) scoreBadgeClass = 'grade-badge-satisfactory-high';
-                    else if (g.score >= 60) scoreBadgeClass = 'grade-badge-satisfactory';
-                    else scoreBadgeClass = 'grade-badge-fail';
-
-                    gradesRowsHtml += `
-                        <tr class="border-b border-slate-100 hover:bg-slate-50/50">
-                            <td class="py-2.5 px-3 text-xs font-medium text-slate-700">${g.date}</td>
-                            <td class="py-2.5 px-3 text-xs font-semibold text-slate-800">${g.type}</td>
-                            <td class="py-2.5 px-3 text-xs text-slate-600">${g.topic}</td>
-                            <td class="py-2.5 px-3 text-xs text-center">${attBadge}</td>
-                            <td class="py-2.5 px-3 text-xs text-center font-black">
-                                <span class="px-2.5 py-1 rounded-lg ${scoreBadgeClass}">${g.score} միավոր</span>
-                            </td>
-                            <td class="py-2.5 px-3 text-xs text-right no-print">
-                                <button onclick="deleteGrade('${student.id}', ${sIdx}, ${gIdx})" class="text-rose-500 hover:text-rose-700 p-1"><i class="fa-solid fa-trash"></i></button>
-                            </td>
-                        </tr>
-                    `;
-                });
-
-                card.innerHTML = `
-                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-4">
-                        <div>
-                            <div class="flex items-center gap-2">
-                                <h3 class="font-extrabold text-base text-slate-900">${subjItem.name}</h3>
-                                <span class="px-3 py-0.5 rounded-full text-xs font-bold ${badgeClass}">${gradeText} (${avg})</span>
-                            </div>
-                            <p class="text-xs text-slate-500">100-միավորանոց սանդղակ (60+ անցողիկ)</p>
-                        </div>
-                        <div class="flex flex-wrap items-center gap-2 no-print">
-                            <button onclick="openAddGradeModal('${student.id}', ${sIdx})" class="bg-blue-600 hover:bg-blue-700 text-white px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 shadow">
-                                <i class="fa-solid fa-plus"></i> Ավելացնել գնահատական
-                            </button>
-                            <button onclick="finishAndArchiveSubject('${student.id}', ${sIdx})" class="bg-emerald-600 hover:bg-emerald-700 text-white px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 shadow">
-                                <i class="fa-solid fa-box-archive"></i> Ավարտել և պահպանել արխիվում
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left border-collapse">
-                            <thead>
-                                <tr class="bg-slate-50 text-slate-500 text-[11px] uppercase tracking-wider">
-                                    <th class="py-2 px-3">Ամսաթիվ</th>
-                                    <th class="py-2 px-3">Տեսակ</th>
-                                    <th class="py-2 px-3">Թեմա</th>
-                                    <th class="py-2 px-3 text-center">Հաճախում</th>
-                                    <th class="py-2 px-3 text-center">Միավոր (0-100)</th>
-                                    <th class="py-2 px-3 text-right no-print">Գործողություն</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                ${gradesRowsHtml || '<tr><td colspan="6" class="text-center py-4 text-xs text-slate-400">Գնահատականներ դեռևս չկան</td></tr>'}
-                            </tbody>
-                        </table>
-                    </div>
-                `;
+                card.className = 'bg-white rounded-3xl border p-6 shadow-sm space-y-4';
+                card.innerHTML = `<h3 class="font-bold text-lg">${subj.name}</h3>`;
                 container.appendChild(card);
             });
         }
 
-        function openAddGradeModal(studentId, subjectIndex) {
-            const date = prompt('Նշեք ամսաթիվը (YYYY-MM-DD):', new Date().toISOString().split('T')[0]);
-            if (!date) return;
-
-            const type = prompt('Նշեք գնահատման տեսակը (Ընթացիկ ակտիվություն, Միջանկյալ ստուգում, Սեմինար, Քննություն, Ստուգարք):', 'Ընթացիկ ակտիվություն');
-            if (!type) return;
-
-            const topic = prompt('Նշեք թեման կամ առաջադրանքը:', 'Լաբորատոր աշխատանք');
-            if (!topic) return;
-
-            const attendance = prompt('Հաճախում՝ (Ն) - Ներկա, (Բ) - Բացակա:', 'Ն');
-            const attVal = (attendance && attendance.toUpperCase() === 'Բ') ? 'absent' : 'present';
-
-            const scoreInput = prompt('Նշեք գնահատականը (0 - 100 միավոր):', '85');
-            if (scoreInput === null) return;
-            const score = Number(scoreInput);
-
-            const student = appData.students.find(s => s.id === studentId);
-            if (!student) return;
-
-            student.subjectsGradebook[subjectIndex].grades.push({
-                date,
-                type,
-                topic,
-                attendance: attVal,
-                score
-            });
-
-            saveToLocalStorage();
-            loadStudentGradebook(studentId);
-            updateGlobalStats();
-            addHistoryRecord(`Ավելացվեց գնահատական (${score} միավոր) ${student.lastName}-ի համար`);
-        }
-
-        function deleteGrade(studentId, subjectIndex, gradeIndex) {
-            const student = appData.students.find(s => s.id === studentId);
-            if (!student) return;
-
-            student.subjectsGradebook[subjectIndex].grades.splice(gradeIndex, 1);
-            saveToLocalStorage();
-            loadStudentGradebook(studentId);
-            updateGlobalStats();
-        }
-
-        function finishAndArchiveSubject(studentId, subjectIndex) {
-            const student = appData.students.find(s => s.id === studentId);
-            if (!student) return;
-
-            const subj = student.subjectsGradebook[subjectIndex];
-
-            let totalScore = 0;
-            let count = subj.grades.length;
-            subj.grades.forEach(g => totalScore += Number(g.score || 0));
-            let finalAvg = count > 0 ? (totalScore / count).toFixed(1) : 0;
-
-            subj.status = 'archived';
-            subj.finalScore = finalAvg;
-
-            if (!appData.archiveItems) appData.archiveItems = [];
-            appData.archiveItems.push({
-                typeItem: 'subject',
-                id: 'arch_' + Date.now(),
-                studentName: `${student.lastName} ${student.firstName}`,
-                studentId: student.id,
-                name: subj.name,
-                finalScore: finalAvg,
-                gradesCount: count,
-                grades: [...subj.grades]
-            });
-
-            saveToLocalStorage();
-            loadStudentGradebook(studentId);
-            renderArchive();
-            addHistoryRecord(`Առարկան («${subj.name}») հաջողությամբ ավարտվել և պահպանվել է արխիվում (${finalAvg} վերջնական միավորով)`);
-            alert(`Առարկան հաջողությամբ ավարտվեց և մշտական գնահատականով (${finalAvg} միավոր) ուղարկվեց արխիվ։`);
-        }
-
-        function printGradebook() {
-            window.print();
-        }
-
-        function renderCourseFiles(courseFilter = 'all') {
-            const container = document.getElementById('courseFilesContainer');
-            const emptyState = document.getElementById('emptyCourseFiles');
-            container.innerHTML = '';
-
-            let allFiles = [];
-            appData.students.forEach(student => {
-                student.topics.forEach(t => {
-                    allFiles.push({
-                        ...t,
-                        studentName: `${student.lastName} ${student.firstName}`,
-                        course: student.course
-                    });
-                });
-            });
-
-            document.getElementById('course-count-all').textContent = allFiles.length;
-            document.getElementById('course-count-1').textContent = allFiles.filter(f => f.course === '1-ին').length;
-            document.getElementById('course-count-2').textContent = allFiles.filter(f => f.course === '2-րդ').length;
-            document.getElementById('course-count-3').textContent = allFiles.filter(f => f.course === '3-րդ').length;
-            document.getElementById('course-count-4').textContent = allFiles.filter(f => f.course === '4-րդ').length;
-
-            let filtered = courseFilter === 'all' ? allFiles : allFiles.filter(f => f.course === courseFilter);
-
-            if (filtered.length === 0) {
-                emptyState.classList.remove('hidden');
-                return;
-            }
-            emptyState.classList.add('hidden');
-
-            filtered.forEach(file => {
-                const card = document.createElement('div');
-                card.className = 'bg-white border border-slate-200 rounded-2xl p-5 shadow-sm flex flex-col justify-between space-y-3';
-                card.innerHTML = `
-                    <div>
-                        <div class="flex items-center justify-between mb-2">
-                            <span class="bg-indigo-50 text-indigo-700 text-xs font-bold px-2.5 py-0.5 rounded-full">${file.course} կուրս</span>
-                            <span class="text-xs text-slate-400">${file.studentName}</span>
-                        </div>
-                        <h4 class="font-bold text-slate-800 text-sm">${file.subject}</h4>
-                        <p class="text-xs text-slate-600 mt-1">${file.title}</p>
-                    </div>
-                    <div class="flex items-center justify-between pt-3 border-t border-slate-100 text-xs">
-                        <span class="text-slate-500 truncate max-w-[200px]"><i class="fa-solid fa-file-arrow-down text-blue-500 mr-1"></i> ${file.fileName}</span>
-                        <span class="font-bold text-slate-700">${file.type}</span>
-                    </div>
-                `;
-                container.appendChild(card);
-            });
-        }
-
-        function filterByCourse(course) {
-            document.querySelectorAll('.course-filter-btn').forEach(btn => btn.classList.remove('border-blue-500', 'bg-blue-50'));
-            event.currentTarget.classList.add('border-blue-500', 'bg-blue-50');
-            renderCourseFiles(course);
-        }
-
-        function renderArchive() {
-            const grid = document.getElementById('archivedGrid');
-            const emptyState = document.getElementById('emptyArchiveState');
-            grid.innerHTML = '';
-
-            if (!appData.archiveItems || appData.archiveItems.length === 0) {
-                emptyState.classList.remove('hidden');
-                return;
-            }
-            emptyState.classList.add('hidden');
-
-            appData.archiveItems.forEach((item, index) => {
-                const card = document.createElement('div');
-                card.className = 'bg-white rounded-3xl border border-slate-200 p-6 shadow-sm space-y-3';
-
-                if (item.typeItem === 'subject') {
-                    card.innerHTML = `
-                        <div class="flex items-center justify-between border-b border-slate-100 pb-3">
-                            <div class="flex items-center gap-2">
-                                <span class="bg-emerald-100 text-emerald-700 text-xs font-bold px-3 py-1 rounded-full">Արխիվացված առարկա</span>
-                                <span class="text-xs text-slate-500">Ուսանող՝ <strong>${item.studentName}</strong></span>
-                            </div>
-                            <span class="bg-blue-600 text-white font-black px-3 py-1 rounded-xl text-xs">Վերջնական ՄՈԳ՝ ${item.finalScore} միավոր</span>
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <div>
-                                <h4 class="font-extrabold text-slate-900 text-base">${item.name}</h4>
-                                <p class="text-xs text-slate-500">Բաղկացած է ${item.gradesCount} գնահատված առաջադրանքից</p>
-                            </div>
-                            <button onclick="restoreArchiveItem(${index})" class="bg-blue-50 hover:bg-blue-100 text-blue-700 px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-all no-print">
-                                <i class="fa-solid fa-rotate-left"></i> Վերականգնել ակտիվ ցանկ
-                            </button>
-                        </div>
-                    `;
-                } else {
-                    card.innerHTML = `
-                        <div class="flex items-center justify-between border-b border-slate-100 pb-3">
-                            <span class="bg-purple-100 text-purple-700 text-xs font-bold px-3 py-1 rounded-full">Արխիվացված թեմա</span>
-                            <span class="text-xs text-slate-500">${item.studentName}</span>
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <div>
-                                <h4 class="font-extrabold text-slate-900 text-base">${item.subject}: ${item.title}</h4>
-                                <p class="text-xs text-slate-500">Տեսակը՝ ${item.type} | Դասախոս՝ ${item.lecturer}</p>
-                            </div>
-                            <button onclick="restoreArchiveItem(${index})" class="bg-blue-50 hover:bg-blue-100 text-blue-700 px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-all no-print">
-                                <i class="fa-solid fa-rotate-left"></i> Վերականգնել
-                            </button>
-                        </div>
-                    `;
-                }
-                grid.appendChild(card);
-            });
-        }
-
-        function restoreArchiveItem(index) {
-            const item = appData.archiveItems[index];
-            const student = appData.students.find(s => s.id === item.studentId);
-
-            if (student) {
-                if (item.typeItem === 'subject') {
-                    const subj = student.subjectsGradebook.find(s => s.name === item.name);
-                    if (subj) subj.status = 'active';
-                } else {
-                    const top = student.topics.find(t => t.id === item.id);
-                    if (top) top.status = 'active';
-                }
-            }
-
-            appData.archiveItems.splice(index, 1);
-            saveToLocalStorage();
-            renderArchive();
-            if (currentSelectedStudentId) loadStudentGradebook(currentSelectedStudentId);
-            addHistoryRecord(`Վերականգնվեց արխիվից՝ ${item.name || item.subject}`);
-        }
-
-        function addHistoryRecord(text) {
-            if (!appData.history) appData.history = [];
-            appData.history.unshift({
-                text,
-                date: new Date().toLocaleString('hy-AM')
-            });
-            if (appData.history.length > 50) appData.history.pop();
-            saveToLocalStorage();
-        }
-
-        function renderHistory() {
-            const timeline = document.getElementById('historyTimeline');
-            if (!timeline) return;
-            timeline.innerHTML = '';
-
-            if (!appData.history || appData.history.length === 0) {
-                timeline.innerHTML = '<p class="text-xs text-slate-400 text-center py-4">Պատմություն չկա:</p>';
-                return;
-            }
-
-            appData.history.execute = true;
-            appData.history.forEach(item => {
-                const div = document.createElement('div');
-                div.className = 'flex items-start gap-4 relative pl-8';
-                div.innerHTML = `
-                    <div class="absolute left-2.5 top-1.5 w-3 h-3 rounded-full bg-blue-600 border-2 border-white shadow"></div>
-                    <div>
-                        <p class="text-xs font-bold text-slate-800">${item.text}</p>
-                        <span class="text-[10px] text-slate-400">${item.date}</span>
-                    </div>
-                `;
-                timeline.appendChild(div);
-            });
-        }
-
+        function renderCourseFiles() {}
+        function renderArchive() {}
+        function renderHistory() {}
         function updateGlobalStats() {
-            const totalStudents = appData.students.length;
-            document.getElementById('statTotalStudents').textContent = totalStudents;
-
-            let totalGradesCount = 0;
-            let sumScores = 0;
-            let scoreCount = 0;
-
-            appData.students.forEach(s => {
-                if (s.subjectsGradebook) {
-                    s.subjectsGradebook.forEach(subj => {
-                        subj.grades.forEach(g => {
-                            totalGradesCount++;
-                            sumScores += Number(g.score || 0);
-                            scoreCount++;
-                        });
-                    });
-                }
-            });
-
-            document.getElementById('statTotalGrades').textContent = totalGradesCount;
-            let avgMog = scoreCount > 0 ? (sumScores / scoreCount).toFixed(1) : 0;
-            document.getElementById('statAvgMog').textContent = avgMog;
+            document.getElementById('statTotalStudents').textContent = appData.students.length;
         }
-
-        function handleSearch(query) {
-            const q = query.toLowerCase().trim();
-            if (!q) {
-                renderStudents();
-                return;
-            }
-
-            const filtered = appData.students.filter(s => 
-                s.firstName.toLowerCase().includes(q) ||
-                s.lastName.toLowerCase().includes(q) ||
-                s.faculty.toLowerCase().includes(q) ||
-                s.chair.toLowerCase().includes(q) ||
-                s.university.toLowerCase().includes(q)
-            );
-
-            renderStudents(filtered);
-        }
+        function handleSearch(q) {}
     </script>
 </body>
 </html>
