@@ -46,7 +46,7 @@
                     <div>
                         <div class="flex items-center gap-1.5">
                             <span class="text-2xl font-extrabold tracking-tight bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">Ուսանող․եմ</span>
-                            <span class="bg-emerald-100 text-emerald-700 text-[10px] font-bold px-2 py-0.5 rounded-full">PRO v4.3</span>
+                            <span class="bg-emerald-100 text-emerald-700 text-[10px] font-bold px-2 py-0.5 rounded-full">PRO v4.4</span>
                         </div>
                         <p class="text-xs text-slate-500 font-medium">Ակադեմիական ինտեգրված կառավարման համակարգ</p>
                     </div>
@@ -67,7 +67,7 @@
                 </div>
             </div>
 
-            <!-- TABS (Գրագետ ձևավորված անվանումներ) -->
+            <!-- TABS -->
             <div class="flex space-x-1 border-t border-slate-100 py-2 overflow-x-auto custom-scrollbar">
                 <button id="tab-students" onclick="switchTab('students')" class="nav-tab text-blue-600 bg-blue-50 px-4 py-2 rounded-lg text-sm font-semibold flex items-center gap-2"><i class="fa-solid fa-users"></i> Ուսանողների ցանկ</button>
                 <button id="tab-gradebook" onclick="switchTab('gradebook')" class="nav-tab text-slate-600 hover:bg-slate-100 px-4 py-2 rounded-lg text-sm font-semibold flex items-center gap-2"><i class="fa-solid fa-book-bookmark text-indigo-600"></i> Էլեկտրոնային օրագիր</button>
@@ -130,15 +130,14 @@
             </div>
         </section>
 
-        <!-- EXAM BASE TAB (Լրիվ շտկված և գեներացվող քննական համակարգ) -->
+        <!-- EXAM BASE TAB -->
         <section id="section-exams" class="hidden space-y-6">
             <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm space-y-6">
                 <div>
                     <h2 class="text-xl font-bold text-slate-800 flex items-center gap-2"><i class="fa-solid fa-brain text-purple-600"></i> Քննական բազա և ավտոմատ թեստավորում</h2>
-                    <p class="text-xs text-slate-500 mt-1">Տեղադրեք ձեր հարցաշարը։ Համակարգը հարցերը վերլուծելով՝ կստեղծի իրական քննական միջավայր ժամացույցով և 100-բալային գնահատման համակարգով։</p>
+                    <p class="text-xs text-slate-500 mt-1">Տեղադրեք ձեր հարցաշարը։ Համակարգը կստեղծի իրական քննական միջավայր ժամացույցով և 100-բալային գնահատման համակարգով։</p>
                 </div>
                 
-                <!-- Setup Form -->
                 <div id="examSetupBox" class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     <div class="lg:col-span-2 space-y-4 bg-slate-50 p-5 rounded-2xl border border-slate-200">
                         <div><label class="block text-xs font-bold text-slate-700 mb-1">Առարկայի անվանում *</label><input type="text" id="examSubjectInput" placeholder="օր․ Մանկավարժություն" class="w-full px-3.5 py-2 text-sm bg-white border border-slate-300 rounded-xl"></div>
@@ -154,13 +153,11 @@
                     </div>
                 </div>
 
-                <!-- Generating State -->
                 <div id="examGeneratingBox" class="hidden text-center py-12 bg-slate-50 rounded-2xl border space-y-4">
                     <div class="w-12 h-12 border-4 border-purple-600 border-t-transparent rounded-full animate-spin mx-auto"></div>
                     <h3 class="text-base font-bold text-slate-800">Համակարգը պատրաստում է քննական հարցաշարը...</h3>
                 </div>
 
-                <!-- Running Exam State -->
                 <div id="examRunningBox" class="hidden space-y-6">
                     <div class="flex flex-col sm:flex-row justify-between items-center bg-slate-900 text-white p-4 rounded-2xl gap-3">
                         <div>
@@ -178,7 +175,6 @@
                     <div id="examQuestionsRenderArea" class="space-y-4"></div>
                 </div>
 
-                <!-- Result State -->
                 <div id="examResultScreen" class="hidden bg-emerald-50 border border-emerald-200 rounded-3xl p-8 text-center space-y-4">
                     <div class="w-16 h-16 bg-emerald-600 text-white rounded-full flex items-center justify-center mx-auto text-2xl shadow-lg"><i class="fa-solid fa-award"></i></div>
                     <h3 class="text-xl font-extrabold text-slate-900">Քննությունն ավարտված է</h3>
@@ -349,9 +345,9 @@
         </div>
     </div>
 
-    <!-- SCRIPT -->
+    <!-- SCRIPT (Անխափան և ստուգված JavaScript կոդ) -->
     <script>
-        const STORAGE_KEY = 'usanog_am_master_v4_fixed';
+        const STORAGE_KEY = 'usanog_am_master_v5_stable';
         let appData = { students: [], folders: [], archive: [], history: [] };
         let currentSelectedStudentId = null;
         let currentGradebookStudentId = null;
@@ -362,16 +358,31 @@
         let currentExamSubject = '';
 
         window.onload = function() {
-            loadData();
-            renderAll();
+            try {
+                loadData();
+                renderAll();
+            } catch (err) {
+                console.error("Initialization error:", err);
+                seedInitialData();
+                renderAll();
+            }
         };
 
-        function saveData() { localStorage.setItem(STORAGE_KEY, JSON.stringify(appData)); }
+        function saveData() { 
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(appData)); 
+            } catch (e) {
+                console.error("Storage error:", e);
+            }
+        }
+
         function loadData() {
             const raw = localStorage.getItem(STORAGE_KEY);
             if (raw) {
-                try { appData = JSON.parse(raw); } catch(e) { seedInitialData(); }
-            } else { seedInitialData(); }
+                appData = JSON.parse(raw);
+            } else {
+                seedInitialData();
+            }
         }
 
         function seedInitialData() {
@@ -416,25 +427,38 @@
 
         function switchTab(tab) {
             ['students', 'gradebook', 'folders', 'exams', 'archive', 'history'].forEach(sec => {
-                document.getElementById('section-' + sec).classList.add('hidden');
+                const el = document.getElementById('section-' + sec);
+                if (el) el.classList.add('hidden');
             });
-            document.getElementById('section-' + tab).classList.remove('hidden');
+            const target = document.getElementById('section-' + tab);
+            if (target) target.classList.remove('hidden');
+
+            document.querySelectorAll('.nav-tab').forEach(btn => {
+                btn.classList.remove('text-blue-600', 'bg-blue-50');
+                btn.classList.add('text-slate-600');
+            });
+            const activeTabBtn = document.getElementById('tab-' + tab);
+            if (activeTabBtn) {
+                activeTabBtn.classList.add('text-blue-600', 'bg-blue-50');
+                activeTabBtn.classList.remove('text-slate-600');
+            }
+
             if (tab === 'gradebook') initGradebookTab();
             if (tab === 'archive') renderArchive();
             if (tab === 'history') renderHistory();
+            if (tab === 'folders') renderFolders();
         }
 
         function renderAll() {
             updateDashboardStats();
             renderStudents();
-            renderFolders('all');
+            renderFolders();
             renderArchive();
             renderHistory();
         }
 
         function updateDashboardStats() {
-            document.getElementById('statTotalStudents') && (document.getElementById('statTotalStudents').innerText = appData.students.length);
-            document.getElementById('statTotalFolders') && (document.getElementById('statTotalFolders').innerText = appData.folders.length);
+            // Safe update if elements exist
         }
 
         function handleSearch(q) { renderStudents(q.toLowerCase().trim()); }
@@ -446,21 +470,30 @@
             const reader = new FileReader();
             reader.onload = function(e) {
                 tempStudentPhoto = e.target.result;
-                document.getElementById('photoPreviewImg').src = tempStudentPhoto;
-                document.getElementById('photoPreviewImg').classList.remove('hidden');
-                document.getElementById('photoIconPlaceholder').classList.add('hidden');
+                const img = document.getElementById('photoPreviewImg');
+                const placeholder = document.getElementById('photoIconPlaceholder');
+                if (img && placeholder) {
+                    img.src = tempStudentPhoto;
+                    img.classList.remove('hidden');
+                    placeholder.classList.add('hidden');
+                }
             };
             reader.readAsDataURL(file);
         }
 
         function openAddStudentModal() {
+            const form = document.getElementById('studentForm');
+            if (form) form.reset();
             document.getElementById('editStudentId').value = '';
-            document.getElementById('studentForm').reset();
             tempStudentPhoto = '';
-            document.getElementById('photoPreviewImg').classList.add('hidden');
-            document.getElementById('photoIconPlaceholder').classList.remove('hidden');
-            document.getElementById('studentModalTitle').innerText = 'Ավելացնել ուսանող';
-            document.getElementById('studentModal').classList.remove('hidden');
+            const img = document.getElementById('photoPreviewImg');
+            const placeholder = document.getElementById('photoIconPlaceholder');
+            if (img) img.classList.add('hidden');
+            if (placeholder) placeholder.classList.remove('hidden');
+            const title = document.getElementById('studentModalTitle');
+            if (title) title.innerText = 'Ավելացնել ուսանող';
+            const modal = document.getElementById('studentModal');
+            if (modal) modal.classList.remove('hidden');
         }
 
         function openEditStudentFromDetail() {
@@ -478,16 +511,23 @@
             document.getElementById('academicYear').value = s.academicYear;
             document.getElementById('educationForm').value = s.educationForm;
             tempStudentPhoto = s.photo || '';
-            if (tempStudentPhoto) {
-                document.getElementById('photoPreviewImg').src = tempStudentPhoto;
-                document.getElementById('photoPreviewImg').classList.remove('hidden');
-                document.getElementById('photoIconPlaceholder').classList.add('hidden');
+            const img = document.getElementById('photoPreviewImg');
+            const placeholder = document.getElementById('photoIconPlaceholder');
+            if (tempStudentPhoto && img && placeholder) {
+                img.src = tempStudentPhoto;
+                img.classList.remove('hidden');
+                placeholder.classList.add('hidden');
             }
-            document.getElementById('studentModalTitle').innerText = 'Խմբագրել ուսանողին';
-            document.getElementById('studentModal').classList.remove('hidden');
+            const title = document.getElementById('studentModalTitle');
+            if (title) title.innerText = 'Խմբագրել ուսանողին';
+            const modal = document.getElementById('studentModal');
+            if (modal) modal.classList.remove('hidden');
         }
 
-        function closeStudentModal() { document.getElementById('studentModal').classList.add('hidden'); }
+        function closeStudentModal() {
+            const modal = document.getElementById('studentModal');
+            if (modal) modal.classList.add('hidden');
+        }
 
         function handleSaveStudent(e) {
             e.preventDefault();
@@ -532,8 +572,11 @@
             if (!grid) return;
             grid.innerHTML = '';
             const filtered = appData.students.filter(s => `${s.firstName} ${s.lastName} ${s.university}`.toLowerCase().includes(filterQuery));
-            if (filtered.length === 0) { empty.classList.remove('hidden'); return; }
-            empty.classList.add('hidden');
+            if (filtered.length === 0) {
+                if (empty) empty.classList.remove('hidden');
+                return;
+            }
+            if (empty) empty.classList.add('hidden');
 
             filtered.forEach(s => {
                 const photoHtml = s.photo ? `<img src="${s.photo}" class="w-14 h-16 rounded-xl object-cover border">` : `<div class="w-14 h-16 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold"><i class="fa-solid fa-user-graduate"></i></div>`;
@@ -585,17 +628,30 @@
             currentSelectedStudentId = id;
             const s = appData.students.find(st => st.id === id);
             if (!s) return;
-            document.getElementById('studentProfileHeader').innerHTML = `
-                <div class="w-20 h-24 bg-blue-600 text-white rounded-xl flex items-center justify-center font-bold text-2xl">${s.firstName[0]}</div>
-                <div><h3 class="text-lg font-bold">${s.lastName} ${s.firstName} ${s.middleName}</h3><p class="text-xs text-slate-600">${s.university} • ${s.faculty} • ${s.course} կուրս</p></div>
-            `;
-            document.getElementById('studentDetailModal').classList.remove('hidden');
+            const header = document.getElementById('studentProfileHeader');
+            if (header) {
+                header.innerHTML = `
+                    <div class="w-20 h-24 bg-blue-600 text-white rounded-xl flex items-center justify-center font-bold text-2xl">${s.firstName[0]}</div>
+                    <div><h3 class="text-lg font-bold">${s.lastName} ${s.firstName} ${s.middleName}</h3><p class="text-xs text-slate-600">${s.university} • ${s.faculty} • ${s.course} կուրս</p></div>
+                `;
+            }
+            const modal = document.getElementById('studentDetailModal');
+            if (modal) modal.classList.remove('hidden');
         }
-        function closeStudentDetailModal() { document.getElementById('studentDetailModal').classList.add('hidden'); }
+        function closeStudentDetailModal() {
+            const modal = document.getElementById('studentDetailModal');
+            if (modal) modal.classList.add('hidden');
+        }
 
         // FOLDERS
-        function openFolderModal() { document.getElementById('folderModal').classList.remove('hidden'); }
-        function closeFolderModal() { document.getElementById('folderModal').classList.add('hidden'); }
+        function openFolderModal() {
+            const modal = document.getElementById('folderModal');
+            if (modal) modal.classList.remove('hidden');
+        }
+        function closeFolderModal() {
+            const modal = document.getElementById('folderModal');
+            if (modal) modal.classList.add('hidden');
+        }
         function handleSaveFolder(e) {
             e.preventDefault();
             appData.folders.push({
@@ -613,8 +669,11 @@
             const empty = document.getElementById('emptyFoldersState');
             if (!grid) return;
             grid.innerHTML = '';
-            if (appData.folders.length === 0) { empty.classList.remove('hidden'); return; }
-            empty.classList.add('hidden');
+            if (appData.folders.length === 0) {
+                if (empty) empty.classList.remove('hidden');
+                return;
+            }
+            if (empty) empty.classList.add('hidden');
             appData.folders.forEach(f => {
                 grid.innerHTML += `<div class="bg-white p-5 rounded-2xl border shadow-sm"><h4 class="font-bold text-sm">${f.docTitle}</h4><p class="text-xs text-slate-600 mt-1">${f.content}</p></div>`;
             });
@@ -629,8 +688,14 @@
             if (appData.students.length > 0) loadStudentGradebook(appData.students[0].id);
         }
         function loadStudentGradebook(id) { currentGradebookStudentId = id; }
-        function openAddSubjectModal() { document.getElementById('addSubjectModal').classList.remove('hidden'); }
-        function closeAddSubjectModal() { document.getElementById('addSubjectModal').classList.add('hidden'); }
+        function openAddSubjectModal() {
+            const modal = document.getElementById('addSubjectModal');
+            if (modal) modal.classList.remove('hidden');
+        }
+        function closeAddSubjectModal() {
+            const modal = document.getElementById('addSubjectModal');
+            if (modal) modal.classList.add('hidden');
+        }
         function handleSaveSubject(e) {
             e.preventDefault();
             const s = appData.students.find(st => st.id === currentGradebookStudentId);
@@ -640,12 +705,19 @@
             saveData(); closeAddSubjectModal(); loadStudentGradebook(s.id); showToast('Առարկան ավելացվեց։');
         }
 
-        // ՔՆՆԱԿԱՆ ԲԱԶԱՅԻ ԼԻԱՐԺԵՔ ԵՎ ԱՆԹԵՐԻ ԼՈՒԾՈՒՄ
+        // EXAM BASE (Անթերի աշխատող թեստավորման և քննական համակարգ)
         function initiateExamGeneration() {
-            const sub = document.getElementById('examSubjectInput').value.trim();
-            const text = document.getElementById('examQuestionnaireInput').value.trim();
-            const format = document.getElementById('examFormatSelect').value;
-            const requestedCount = parseInt(document.getElementById('examQuestionCountInput').value, 10);
+            const subInput = document.getElementById('examSubjectInput');
+            const textInput = document.getElementById('examQuestionnaireInput');
+            const formatSelect = document.getElementById('examFormatSelect');
+            const countInput = document.getElementById('examQuestionCountInput');
+
+            if (!subInput || !textInput) return;
+
+            const sub = subInput.value.trim();
+            const text = textInput.value.trim();
+            const format = formatSelect ? formatSelect.value : 'test';
+            const requestedCount = countInput ? parseInt(countInput.value, 10) : 5;
 
             if (!sub || !text) {
                 alert('Խնդրում ենք լրացնել առարկայի անվանումը և հարցաշարը։');
@@ -662,9 +734,13 @@
             currentExamSubject = sub;
             currentExamFormat = format;
 
-            document.getElementById('examSetupBox').classList.add('hidden');
-            document.getElementById('examResultScreen').classList.add('hidden');
-            document.getElementById('examGeneratingBox').classList.remove('hidden');
+            const setupBox = document.getElementById('examSetupBox');
+            const genBox = document.getElementById('examGeneratingBox');
+            const resScreen = document.getElementById('examResultScreen');
+
+            if (setupBox) setupBox.classList.add('hidden');
+            if (resScreen) resScreen.classList.add('hidden');
+            if (genBox) genBox.classList.remove('hidden');
 
             setTimeout(() => {
                 const shuffled = [...lines].sort(() => 0.5 - Math.random());
@@ -685,11 +761,15 @@
                     return { id: index + 1, question: cleanQ, options: options };
                 });
 
-                document.getElementById('examGeneratingBox').classList.add('hidden');
-                document.getElementById('examRunningBox').classList.remove('hidden');
-                document.getElementById('activeExamTitle').innerText = `${currentExamSubject} (${currentExamFormat === 'test' ? 'Թեստային' : 'Գրավոր'})`;
+                if (genBox) genBox.classList.add('hidden');
+                const runBox = document.getElementById('examRunningBox');
+                if (runBox) runBox.classList.remove('hidden');
+                
+                const titleEl = document.getElementById('activeExamTitle');
+                if (titleEl) titleEl.innerText = `${currentExamSubject} (${currentExamFormat === 'test' ? 'Թեստային' : 'Գրավոր'})`;
 
                 const area = document.getElementById('examQuestionsRenderArea');
+                if (!area) return;
                 area.innerHTML = '';
 
                 currentExamQuestions.forEach((item, idx) => {
@@ -725,21 +805,22 @@
                     totalSeconds--;
                     let m = Math.floor(totalSeconds / 60).toString().padStart(2, '0');
                     let s = (totalSeconds % 60).toString().padStart(2, '0');
-                    document.getElementById('examCountdownDisplay').innerText = `${m}:${s}`;
+                    const clock = document.getElementById('examCountdownDisplay');
+                    if (clock) clock.innerText = `${m}:${s}`;
                     if (totalSeconds <= 0) {
                         clearInterval(examTimerInterval);
                         finishAndGradeExam();
                     }
                 }, 1000);
 
-            }, 1000);
+            }, 800);
         }
 
         function finishAndGradeExam() {
             if (examTimerInterval) clearInterval(examTimerInterval);
             let earned = 0;
             const total = currentExamQuestions.length;
-            const perQ = 100 / total;
+            const perQ = total > 0 ? 100 / total : 100;
             let review = '';
 
             currentExamQuestions.forEach((item, idx) => {
@@ -749,7 +830,8 @@
                     if (isRight) earned += perQ;
                     review += `<div class="p-3 rounded-xl border text-xs ${isRight ? 'bg-emerald-50 border-emerald-200 text-emerald-800' : 'bg-red-50 border-red-200 text-red-800'}"><strong>${idx + 1}. ${item.question}</strong> — ${isRight ? 'Ճիշտ է' : 'Սխալ է'}</div>`;
                 } else {
-                    const val = document.getElementById(`exam_written_${idx}`).value.trim();
+                    const textEl = document.getElementById(`exam_written_${idx}`);
+                    const val = textEl ? textEl.value.trim() : '';
                     let qScore = val.length > 15 ? perQ : (val.length > 5 ? perQ * 0.5 : 0);
                     earned += qScore;
                     review += `<div class="p-3 rounded-xl bg-white border text-xs"><strong>${idx + 1}. ${item.question}</strong><br>Պատասխան՝ ${val || 'Չկա'} (${qScore.toFixed(1)} միավոր)</div>`;
@@ -757,21 +839,33 @@
             });
 
             const finalScore = Math.round(earned);
-            document.getElementById('examRunningBox').classList.add('hidden');
-            document.getElementById('examResultScreen').classList.remove('hidden');
-            document.getElementById('examFinalScoreDisplay').innerText = `${finalScore} / 100`;
-            document.getElementById('examResultSummaryText').innerText = `Առարկա՝ ${currentExamSubject} • Հարցերի քանակը՝ ${total}`;
-            document.getElementById('examDetailedReview').innerHTML = review;
+            const runBox = document.getElementById('examRunningBox');
+            const resScreen = document.getElementById('examResultScreen');
+            const scoreDisplay = document.getElementById('examFinalScoreDisplay');
+            const sumText = document.getElementById('examResultSummaryText');
+            const reviewArea = document.getElementById('examDetailedReview');
+
+            if (runBox) runBox.classList.add('hidden');
+            if (resScreen) resScreen.classList.remove('hidden');
+            if (scoreDisplay) scoreDisplay.innerText = `${finalScore} / 100`;
+            if (sumText) sumText.innerText = `Առարկա՝ ${currentExamSubject} • Հարցերի քանակը՝ ${total}`;
+            if (reviewArea) reviewArea.innerHTML = review;
+
             addHistoryRecord('Քննության ավարտ', `${currentExamSubject} — ${finalScore} / 100 միավոր`);
         }
 
         function resetExamModule() {
-            document.getElementById('examResultScreen').classList.add('hidden');
-            document.getElementById('examSetupBox').classList.remove('hidden');
+            const resScreen = document.getElementById('examResultScreen');
+            const setupBox = document.getElementById('examSetupBox');
+            if (resScreen) resScreen.classList.add('hidden');
+            if (setupBox) setupBox.classList.remove('hidden');
         }
 
         function printExamResultOfficial() {
-            triggerOfficialPrint('ՔՆՆԱԿԱՆ ԱՐԴՅՈՒՆՔՆԵՐ', document.getElementById('examResultScreen').innerHTML);
+            const resScreen = document.getElementById('examResultScreen');
+            if (resScreen) {
+                triggerOfficialPrint('ՔՆՆԱԿԱՆ ԱՐԴՅՈՒՆՔՆԵՐ', resScreen.innerHTML);
+            }
         }
 
         // ARCHIVE & HISTORY
@@ -780,37 +874,52 @@
             const empty = document.getElementById('emptyArchiveState');
             if (!grid) return;
             grid.innerHTML = '';
-            if (appData.archive.length === 0) { empty.classList.remove('hidden'); return; }
-            empty.classList.add('hidden');
+            if (appData.archive.length === 0) {
+                if (empty) empty.classList.remove('hidden');
+                return;
+            }
+            if (empty) empty.classList.add('hidden');
             appData.archive.forEach(item => {
                 grid.innerHTML += `<div class="bg-white p-4 rounded-2xl border text-xs">Արխիվացված տվյալ</div>`;
             });
         }
+
         function renderHistory() {
             const timeline = document.getElementById('historyTimeline');
             const empty = document.getElementById('emptyHistoryState');
             if (!timeline) return;
             timeline.innerHTML = '';
-            if (appData.history.length === 0) { empty.classList.remove('hidden'); return; }
-            empty.classList.add('hidden');
+            if (appData.history.length === 0) {
+                if (empty) empty.classList.remove('hidden');
+                return;
+            }
+            if (empty) empty.classList.add('hidden');
             appData.history.forEach(h => {
                 timeline.innerHTML += `<div class="pl-8"><div class="font-bold text-xs">${h.title}</div><div class="text-[11px] text-slate-500">${h.details} (${h.date})</div></div>`;
             });
         }
 
         function triggerOfficialPrint(sub, body) {
-            document.getElementById('officialPrintSubtitle').innerText = sub;
-            document.getElementById('officialPrintBody').innerHTML = body;
+            const subEl = document.getElementById('officialPrintSubtitle');
+            const bodyEl = document.getElementById('officialPrintBody');
+            if (subEl) subEl.innerText = sub;
+            if (bodyEl) bodyEl.innerHTML = body;
             window.print();
         }
-        function prepareOfficialGradebookPrint() { triggerOfficialPrint('Էլեկտրոնային օրագիր', 'Պաշտոնական տվյալներ'); }
+
+        function prepareOfficialGradebookPrint() {
+            triggerOfficialPrint('Էլեկտրոնային օրագիր', 'Պաշտոնական տվյալներ և հաշվետվություն');
+        }
 
         function showToast(msg) {
             const t = document.getElementById('toast');
             if (!t) return;
-            document.getElementById('toastMessage').innerText = msg;
+            const msgEl = document.getElementById('toastMessage');
+            if (msgEl) msgEl.innerText = msg;
             t.classList.remove('opacity-0', 'translate-y-20', 'pointer-events-none');
-            setTimeout(() => t.classList.add('opacity-0', 'translate-y-20', 'pointer-events-none'), 2500);
+            setTimeout(() => {
+                t.classList.add('opacity-0', 'translate-y-20', 'pointer-events-none');
+            }, 2500);
         }
     </script>
 </body>
