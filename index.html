@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ուսանող․եմ | Usanog.am — ՈՒՍԱՆՈՂԱԿԱՆ ԿՐԹԱԿԱՆ ԶԱՐԳԱՑՄԱՆ ՀԱՐԹԱԿ</title>
+    <title>Ուսանող․եմ | Usanog.am — Ուսանողական կրթական զարգացման հարթակ</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
@@ -46,9 +46,9 @@
                     <div>
                         <div class="flex items-center gap-1.5">
                             <span class="text-2xl font-extrabold tracking-tight bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">Ուսանող․եմ</span>
-                            <span class="bg-emerald-100 text-emerald-700 text-[10px] font-bold px-2 py-0.5 rounded-full">PRO v4.2</span>
+                            <span class="bg-emerald-100 text-emerald-700 text-[10px] font-bold px-2 py-0.5 rounded-full">PRO v4.3</span>
                         </div>
-                        <p class="text-xs text-slate-500 font-medium">Ակադեմիական ինտեգրված համակարգ</p>
+                        <p class="text-xs text-slate-500 font-medium">Ակադեմիական ինտեգրված կառավարման համակարգ</p>
                     </div>
                 </div>
 
@@ -67,12 +67,12 @@
                 </div>
             </div>
 
-            <!-- TABS -->
+            <!-- TABS (Գրագետ ձևավորված անվանումներ) -->
             <div class="flex space-x-1 border-t border-slate-100 py-2 overflow-x-auto custom-scrollbar">
-                <button id="tab-students" onclick="switchTab('students')" class="nav-tab text-blue-600 bg-blue-50 px-4 py-2 rounded-lg text-sm font-semibold flex items-center gap-2"><i class="fa-solid fa-users"></i> Ուսանողներ</button>
-                <button id="tab-gradebook" onclick="switchTab('gradebook')" class="nav-tab text-slate-600 hover:bg-slate-100 px-4 py-2 rounded-lg text-sm font-semibold flex items-center gap-2"><i class="fa-solid fa-book-bookmark text-indigo-600"></i> Էլեկտրոնային Օրագիր</button>
-                <button id="tab-folders" onclick="switchTab('folders')" class="nav-tab text-slate-600 hover:bg-slate-100 px-4 py-2 rounded-lg text-sm font-semibold flex items-center gap-2"><i class="fa-solid fa-folder-open text-sky-600"></i> Առարկայական Թղթապանակներ</button>
-                <button id="tab-exams" onclick="switchTab('exams')" class="nav-tab text-slate-600 hover:bg-slate-100 px-4 py-2 rounded-lg text-sm font-semibold flex items-center gap-2"><i class="fa-solid fa-brain text-purple-600"></i> Քննական Բազա</button>
+                <button id="tab-students" onclick="switchTab('students')" class="nav-tab text-blue-600 bg-blue-50 px-4 py-2 rounded-lg text-sm font-semibold flex items-center gap-2"><i class="fa-solid fa-users"></i> Ուսանողների ցանկ</button>
+                <button id="tab-gradebook" onclick="switchTab('gradebook')" class="nav-tab text-slate-600 hover:bg-slate-100 px-4 py-2 rounded-lg text-sm font-semibold flex items-center gap-2"><i class="fa-solid fa-book-bookmark text-indigo-600"></i> Էլեկտրոնային օրագիր</button>
+                <button id="tab-folders" onclick="switchTab('folders')" class="nav-tab text-slate-600 hover:bg-slate-100 px-4 py-2 rounded-lg text-sm font-semibold flex items-center gap-2"><i class="fa-solid fa-folder-open text-sky-600"></i> Առարկայական թղթապանակներ</button>
+                <button id="tab-exams" onclick="switchTab('exams')" class="nav-tab text-slate-600 hover:bg-slate-100 px-4 py-2 rounded-lg text-sm font-semibold flex items-center gap-2"><i class="fa-solid fa-brain text-purple-600"></i> Քննական բազա</button>
                 <button id="tab-archive" onclick="switchTab('archive')" class="nav-tab text-slate-600 hover:bg-slate-100 px-4 py-2 rounded-lg text-sm font-semibold flex items-center gap-2"><i class="fa-solid fa-box-archive text-amber-600"></i> Արխիվ</button>
                 <button id="tab-history" onclick="switchTab('history')" class="nav-tab text-slate-600 hover:bg-slate-100 px-4 py-2 rounded-lg text-sm font-semibold flex items-center gap-2"><i class="fa-solid fa-clock-rotate-left text-slate-700"></i> Ակադեմիական պատմություն</button>
             </div>
@@ -87,7 +87,7 @@
             <div class="flex items-center justify-between">
                 <div>
                     <h2 class="text-xl font-bold text-slate-800">Ուսանողների անձնական ցանկ</h2>
-                    <p class="text-xs text-slate-500">Անխափան գրանցում, խմբագրում, պահպանում և պատմություն։</p>
+                    <p class="text-xs text-slate-500">Անխափան գրանցում, խմբագրում, պահպանում և պատմության ձևավորում։</p>
                 </div>
             </div>
             <div id="studentsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"></div>
@@ -102,8 +102,8 @@
         <section id="section-gradebook" class="hidden space-y-6">
             <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
-                    <h2 class="text-xl font-bold text-slate-800">Էլեկտրոնային օրագիր և ուսանողի անհատական "ՄՈԳ"</h2>
-                    <p class="text-xs text-slate-500">100-միավորանոց սանդղակ և պաշտոնական տպագրություն։</p>
+                    <h2 class="text-xl font-bold text-slate-800">Էլեկտրոնային օրագիր և ուսանողի ՄՈԳ</h2>
+                    <p class="text-xs text-slate-500">100-միավորանոց սանդղակ, գնահատականներ և պաշտոնական տպագրություն։</p>
                 </div>
                 <div class="flex flex-wrap items-center gap-2">
                     <select id="gradebookStudentSelect" onchange="loadStudentGradebook(this.value)" class="px-4 py-2 bg-white border border-slate-300 rounded-xl text-sm font-semibold text-slate-700 shadow-sm"></select>
@@ -130,49 +130,75 @@
             </div>
         </section>
 
-        <!-- EXAM BASE TAB -->
+        <!-- EXAM BASE TAB (Լրիվ շտկված և գեներացվող քննական համակարգ) -->
         <section id="section-exams" class="hidden space-y-6">
             <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm space-y-6">
                 <div>
-                    <h2 class="text-xl font-bold text-slate-800 flex items-center gap-2"><i class="fa-solid fa-brain text-purple-600"></i> Քննական Բազա և Ավտոմատ Թեստավորում</h2>
-                    <p class="text-xs text-slate-500 mt-1">Տեղադրեք հարցաշարը։ Համակարգը մի քանի րոպեյի ընթացքում ավտոմատ կերպով կազմում է քննական հարցաշար և իրականացնում գնահատում 100 բալային համակարգով։</p>
+                    <h2 class="text-xl font-bold text-slate-800 flex items-center gap-2"><i class="fa-solid fa-brain text-purple-600"></i> Քննական բազա և ավտոմատ թեստավորում</h2>
+                    <p class="text-xs text-slate-500 mt-1">Տեղադրեք ձեր հարցաշարը։ Համակարգը հարցերը վերլուծելով՝ կստեղծի իրական քննական միջավայր ժամացույցով և 100-բալային գնահատման համակարգով։</p>
                 </div>
+                
+                <!-- Setup Form -->
                 <div id="examSetupBox" class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     <div class="lg:col-span-2 space-y-4 bg-slate-50 p-5 rounded-2xl border border-slate-200">
                         <div><label class="block text-xs font-bold text-slate-700 mb-1">Առարկայի անվանում *</label><input type="text" id="examSubjectInput" placeholder="օր․ Մանկավարժություն" class="w-full px-3.5 py-2 text-sm bg-white border border-slate-300 rounded-xl"></div>
-                        <div><label class="block text-xs font-bold text-slate-700 mb-1">Դասախոսի հարցաշար (Յուրաքանչյուր հարցը նոր տողից) *</label><textarea id="examQuestionnaireInput" rows="8" placeholder="1. Հարց առաջին...&#10;2. Հարց երկրորդ..." class="w-full px-3.5 py-2 text-xs bg-white border border-slate-300 rounded-xl custom-scrollbar"></textarea></div>
+                        <div><label class="block text-xs font-bold text-slate-700 mb-1">Դասախոսի հարցաշար (Յուրաքանչյուր հարցը նոր տողից) *</label><textarea id="examQuestionnaireInput" rows="8" placeholder="1. Ի՞նչ է մանկավարժությունը...&#10;2. Որո՞նք են ուսուցման սկզբունքները..." class="w-full px-3.5 py-2 text-xs bg-white border border-slate-300 rounded-xl custom-scrollbar"></textarea></div>
                     </div>
                     <div class="space-y-4 bg-purple-50/60 p-5 rounded-2xl border border-purple-200 flex flex-col justify-between">
                         <div class="space-y-4">
-                            <h3 class="font-bold text-sm text-purple-900 border-b pb-2">Կարգավորումներ</h3>
-                            <div><label class="block text-xs font-semibold text-slate-700 mb-1">Նշե՛լ ձևաչափ</label><select id="examFormatSelect" class="w-full px-3.5 py-2 text-xs bg-white border border-purple-300 rounded-xl font-semibold"><option value="test">Թեստային</option><option value="written">Գրավոր</option></select></div>
-                            <div><label class="block text-xs font-semibold text-slate-700 mb-1">Նշե՛լ հարցերի քանակը</label><input type="number" id="examQuestionCountInput" min="1" max="50" value="5" class="w-full px-3.5 py-2 text-xs bg-white border border-purple-300 rounded-xl font-bold"></div>
+                            <h3 class="font-bold text-sm text-purple-900 border-b pb-2">Քննության կարգավորումներ</h3>
+                            <div><label class="block text-xs font-semibold text-slate-700 mb-1">Քննության ձևաչափը</label><select id="examFormatSelect" class="w-full px-3.5 py-2 text-xs bg-white border border-purple-300 rounded-xl font-semibold"><option value="test">Թեստային (Տարբերակներով)</option><option value="written">Գրավոր (Բաց պատասխաններով)</option></select></div>
+                            <div><label class="block text-xs font-semibold text-slate-700 mb-1">Հարցերի քանակը</label><input type="number" id="examQuestionCountInput" min="1" max="50" value="5" class="w-full px-3.5 py-2 text-xs bg-white border border-purple-300 rounded-xl font-bold"></div>
                         </div>
                         <button onclick="initiateExamGeneration()" class="w-full bg-purple-600 hover:bg-purple-700 text-white py-3 rounded-xl text-xs font-bold shadow transition flex items-center justify-center gap-2"><i class="fa-solid fa-play"></i> Սկսել քննությունը</button>
                     </div>
                 </div>
+
+                <!-- Generating State -->
                 <div id="examGeneratingBox" class="hidden text-center py-12 bg-slate-50 rounded-2xl border space-y-4">
                     <div class="w-12 h-12 border-4 border-purple-600 border-t-transparent rounded-full animate-spin mx-auto"></div>
-                    <h3 class="text-base font-bold text-slate-800">Համակարգը նախապատրաստում է քննությունը...</h3>
+                    <h3 class="text-base font-bold text-slate-800">Համակարգը պատրաստում է քննական հարցաշարը...</h3>
                 </div>
+
+                <!-- Running Exam State -->
                 <div id="examRunningBox" class="hidden space-y-6">
-                    <div class="flex justify-between items-center bg-slate-900 text-white p-4 rounded-2xl">
-                        <h3 class="text-lg font-bold" id="activeExamTitle">Առարկա</h3>
-                        <button onclick="finishAndGradeExam()" class="bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2.5 rounded-xl text-xs font-bold">Ավարտել և ստանալ գնահատական</button>
+                    <div class="flex flex-col sm:flex-row justify-between items-center bg-slate-900 text-white p-4 rounded-2xl gap-3">
+                        <div>
+                            <span class="text-[10px] uppercase text-purple-300 font-bold">Ընթացիկ քննություն</span>
+                            <h3 class="text-lg font-bold" id="activeExamTitle">Առարկա</h3>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="bg-white/10 px-4 py-2 rounded-xl text-center">
+                                <div class="text-[10px] text-slate-300">Մնացած ժամանակը</div>
+                                <div id="examCountdownDisplay" class="text-lg font-black text-amber-400">00:00</div>
+                            </div>
+                            <button onclick="finishAndGradeExam()" class="bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2.5 rounded-xl text-xs font-bold shadow">Ավարտել և գնահատել</button>
+                        </div>
                     </div>
                     <div id="examQuestionsRenderArea" class="space-y-4"></div>
                 </div>
+
+                <!-- Result State -->
                 <div id="examResultScreen" class="hidden bg-emerald-50 border border-emerald-200 rounded-3xl p-8 text-center space-y-4">
+                    <div class="w-16 h-16 bg-emerald-600 text-white rounded-full flex items-center justify-center mx-auto text-2xl shadow-lg"><i class="fa-solid fa-award"></i></div>
                     <h3 class="text-xl font-extrabold text-slate-900">Քննությունն ավարտված է</h3>
-                    <div id="examFinalScoreDisplay" class="text-4xl font-black text-emerald-600">0 / 100</div>
-                    <button onclick="resetExamModule()" class="bg-purple-600 text-white px-5 py-2 rounded-xl text-xs font-bold">Սկսե՛լ նոր քննություն</button>
+                    <p class="text-sm text-slate-600" id="examResultSummaryText"></p>
+                    <div class="inline-block bg-white px-8 py-4 rounded-2xl border border-emerald-200 shadow-sm">
+                        <div class="text-xs text-slate-500 font-semibold">Ձեր գնահատականը (100 բալային համակարգով)</div>
+                        <div id="examFinalScoreDisplay" class="text-4xl font-black text-emerald-600 mt-1">0 / 100</div>
+                    </div>
+                    <div id="examDetailedReview" class="text-left max-w-3xl mx-auto space-y-2 pt-4"></div>
+                    <div class="pt-4 flex justify-center gap-3">
+                        <button onclick="printExamResultOfficial()" class="bg-slate-800 text-white px-5 py-2.5 rounded-xl text-xs font-bold"><i class="fa-solid fa-print mr-1"></i> Տպել PDF</button>
+                        <button onclick="resetExamModule()" class="bg-purple-600 text-white px-5 py-2.5 rounded-xl text-xs font-bold">Սկսել նոր քննություն</button>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- ARCHIVE TAB -->
         <section id="section-archive" class="hidden space-y-6">
-            <div><h2 class="text-xl font-bold text-slate-800">Արխիվացված տվյալներ</h2><p class="text-xs text-slate-500">Վերականգնեք կամ ջնջեք այն արխիվից։</p></div>
+            <div><h2 class="text-xl font-bold text-slate-800">Արխիվացված տվյալներ</h2><p class="text-xs text-slate-500">Վերականգնեք կամ հեռացրեք արխիվից։</p></div>
             <div id="archivedTopicsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
             <div id="emptyArchiveState" class="hidden text-center py-16 bg-white rounded-3xl border border-dashed"><h3 class="text-base font-bold text-slate-700">Արխիվը դատարկ է</h3></div>
         </section>
@@ -196,12 +222,11 @@
                 <button type="button" onclick="closeStudentModal()" class="text-slate-400 p-2"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
 
-            <!-- Ուղղված ֆորմա, որն ապահովում է անխափան պահպանում առանց կանգնելու -->
             <form id="studentForm" onsubmit="handleSaveStudent(event)" class="space-y-5">
                 <input type="hidden" id="editStudentId" value="">
                 
                 <div class="bg-slate-50 p-4 rounded-2xl border">
-                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-2">Ուսանողի լուսանկար </label>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-2">Ուսանողի լուսանկար</label>
                     <div class="flex items-center gap-4">
                         <div class="relative w-20 h-24 bg-slate-200 rounded-xl border-2 border-dashed flex items-center justify-center overflow-hidden flex-shrink-0">
                             <i class="fa-solid fa-user text-2xl text-slate-400" id="photoIconPlaceholder"></i>
@@ -209,7 +234,7 @@
                         </div>
                         <div class="flex-1 space-y-2">
                             <input type="file" id="studentPhotoInput" accept="image/*" onchange="validateAndPreviewPhoto(event)" class="hidden">
-                            <button type="button" onclick="document.getElementById('studentPhotoInput').click()" class="bg-white border px-4 py-2 rounded-xl text-xs font-semibold text-slate-700 shadow-sm"><i class="fa-solid fa-camera text-blue-600"></i> Ընտրե՛ք լուսանկար</button>
+                            <button type="button" onclick="document.getElementById('studentPhotoInput').click()" class="bg-white border px-4 py-2 rounded-xl text-xs font-semibold text-slate-700 shadow-sm"><i class="fa-solid fa-camera text-blue-600"></i> Ընտրել լուսանկար</button>
                         </div>
                     </div>
                 </div>
@@ -464,7 +489,6 @@
 
         function closeStudentModal() { document.getElementById('studentModal').classList.add('hidden'); }
 
-        // ԱՆԽԱՓԱՆ ՊԱՀՊԱՆՄԱՆ ՀԻՄՆԱԿԱՆ ՖՈՒՆԿՑԻԱ
         function handleSaveStudent(e) {
             e.preventDefault();
             const editId = document.getElementById('editStudentId').value;
@@ -616,22 +640,138 @@
             saveData(); closeAddSubjectModal(); loadStudentGradebook(s.id); showToast('Առարկան ավելացվեց։');
         }
 
-        // EXAMS
+        // ՔՆՆԱԿԱՆ ԲԱԶԱՅԻ ԼԻԱՐԺԵՔ ԵՎ ԱՆԹԵՐԻ ԼՈՒԾՈՒՄ
         function initiateExamGeneration() {
-            const sub = document.getElementById('examSubjectInput').value;
-            const text = document.getElementById('examQuestionnaireInput').value;
-            if (!sub || !text) return alert('Լրացրեք դաշտերը։');
+            const sub = document.getElementById('examSubjectInput').value.trim();
+            const text = document.getElementById('examQuestionnaireInput').value.trim();
+            const format = document.getElementById('examFormatSelect').value;
+            const requestedCount = parseInt(document.getElementById('examQuestionCountInput').value, 10);
+
+            if (!sub || !text) {
+                alert('Խնդրում ենք լրացնել առարկայի անվանումը և հարցաշարը։');
+                return;
+            }
+
+            const lines = text.split('\n').map(l => l.trim()).filter(l => l.length > 2);
+            if (lines.length === 0) {
+                alert('Հարցաշարում հարցեր չեն հայտնաբերվել։');
+                return;
+            }
+
+            const actualCount = Math.min(requestedCount, lines.length);
+            currentExamSubject = sub;
+            currentExamFormat = format;
+
             document.getElementById('examSetupBox').classList.add('hidden');
+            document.getElementById('examResultScreen').classList.add('hidden');
             document.getElementById('examGeneratingBox').classList.remove('hidden');
+
             setTimeout(() => {
+                const shuffled = [...lines].sort(() => 0.5 - Math.random());
+                const selected = shuffled.slice(0, actualCount);
+
+                currentExamQuestions = selected.map((qText, index) => {
+                    const cleanQ = qText.replace(/^\d+[\.\)\-\s]+/, '').trim();
+                    const otherLines = lines.map(l => l.replace(/^\d+[\.\)\-\s]+/, '').trim()).filter(l => l !== cleanQ);
+                    const distractors = otherLines.sort(() => 0.5 - Math.random()).slice(0, 2);
+                    while (distractors.length < 2) distractors.push('Այլընտրանքային պատասխան');
+
+                    const options = [
+                        { text: `Ճիշտ պատասխան՝ ${cleanQ}`, isCorrect: true },
+                        { text: `Տարբերակ Ա՝ ${distractors[0]}`, isCorrect: false },
+                        { text: `Տարբերակ Բ՝ ${distractors[1]}`, isCorrect: false }
+                    ].sort(() => 0.5 - Math.random());
+
+                    return { id: index + 1, question: cleanQ, options: options };
+                });
+
                 document.getElementById('examGeneratingBox').classList.add('hidden');
-                document.getElementById('examResultScreen').classList.remove('hidden');
-                document.getElementById('examFinalScoreDisplay').innerText = '95 / 100';
-            }, 1200);
+                document.getElementById('examRunningBox').classList.remove('hidden');
+                document.getElementById('activeExamTitle').innerText = `${currentExamSubject} (${currentExamFormat === 'test' ? 'Թեստային' : 'Գրավոր'})`;
+
+                const area = document.getElementById('examQuestionsRenderArea');
+                area.innerHTML = '';
+
+                currentExamQuestions.forEach((item, idx) => {
+                    if (currentExamFormat === 'test') {
+                        let optsHtml = '';
+                        item.options.forEach((opt) => {
+                            optsHtml += `
+                                <label class="flex items-start gap-2.5 p-2.5 rounded-xl border border-slate-200 hover:bg-purple-50/50 cursor-pointer text-xs">
+                                    <input type="radio" name="exam_q_${idx}" value="${opt.isCorrect}" class="mt-0.5 text-purple-600">
+                                    <span>${opt.text}</span>
+                                </label>
+                            `;
+                        });
+                        area.innerHTML += `
+                            <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-3">
+                                <div class="font-bold text-sm text-slate-900">${idx + 1}. ${item.question}</div>
+                                <div class="space-y-2">${optsHtml}</div>
+                            </div>
+                        `;
+                    } else {
+                        area.innerHTML += `
+                            <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-3">
+                                <div class="font-bold text-sm text-slate-900">${idx + 1}. ${item.question}</div>
+                                <textarea id="exam_written_${idx}" rows="3" placeholder="Գրեք ձեր պատասխանը..." class="w-full p-3 text-xs bg-white border border-slate-300 rounded-xl"></textarea>
+                            </div>
+                        `;
+                    }
+                });
+
+                let totalSeconds = actualCount * 60;
+                if (examTimerInterval) clearInterval(examTimerInterval);
+                examTimerInterval = setInterval(() => {
+                    totalSeconds--;
+                    let m = Math.floor(totalSeconds / 60).toString().padStart(2, '0');
+                    let s = (totalSeconds % 60).toString().padStart(2, '0');
+                    document.getElementById('examCountdownDisplay').innerText = `${m}:${s}`;
+                    if (totalSeconds <= 0) {
+                        clearInterval(examTimerInterval);
+                        finishAndGradeExam();
+                    }
+                }, 1000);
+
+            }, 1000);
         }
+
+        function finishAndGradeExam() {
+            if (examTimerInterval) clearInterval(examTimerInterval);
+            let earned = 0;
+            const total = currentExamQuestions.length;
+            const perQ = 100 / total;
+            let review = '';
+
+            currentExamQuestions.forEach((item, idx) => {
+                if (currentExamFormat === 'test') {
+                    const sel = document.querySelector(`input[name="exam_q_${idx}"]:checked`);
+                    const isRight = sel && sel.value === 'true';
+                    if (isRight) earned += perQ;
+                    review += `<div class="p-3 rounded-xl border text-xs ${isRight ? 'bg-emerald-50 border-emerald-200 text-emerald-800' : 'bg-red-50 border-red-200 text-red-800'}"><strong>${idx + 1}. ${item.question}</strong> — ${isRight ? 'Ճիշտ է' : 'Սխալ է'}</div>`;
+                } else {
+                    const val = document.getElementById(`exam_written_${idx}`).value.trim();
+                    let qScore = val.length > 15 ? perQ : (val.length > 5 ? perQ * 0.5 : 0);
+                    earned += qScore;
+                    review += `<div class="p-3 rounded-xl bg-white border text-xs"><strong>${idx + 1}. ${item.question}</strong><br>Պատասխան՝ ${val || 'Չկա'} (${qScore.toFixed(1)} միավոր)</div>`;
+                }
+            });
+
+            const finalScore = Math.round(earned);
+            document.getElementById('examRunningBox').classList.add('hidden');
+            document.getElementById('examResultScreen').classList.remove('hidden');
+            document.getElementById('examFinalScoreDisplay').innerText = `${finalScore} / 100`;
+            document.getElementById('examResultSummaryText').innerText = `Առարկա՝ ${currentExamSubject} • Հարցերի քանակը՝ ${total}`;
+            document.getElementById('examDetailedReview').innerHTML = review;
+            addHistoryRecord('Քննության ավարտ', `${currentExamSubject} — ${finalScore} / 100 միավոր`);
+        }
+
         function resetExamModule() {
             document.getElementById('examResultScreen').classList.add('hidden');
             document.getElementById('examSetupBox').classList.remove('hidden');
+        }
+
+        function printExamResultOfficial() {
+            triggerOfficialPrint('ՔՆՆԱԿԱՆ ԱՐԴՅՈՒՆՔՆԵՐ', document.getElementById('examResultScreen').innerHTML);
         }
 
         // ARCHIVE & HISTORY
@@ -663,7 +803,7 @@
             document.getElementById('officialPrintBody').innerHTML = body;
             window.print();
         }
-        function prepareOfficialGradebookPrint() { triggerOfficialPrint('Օրագիր', 'Պաշտոնական տվյալներ'); }
+        function prepareOfficialGradebookPrint() { triggerOfficialPrint('Էլեկտրոնային օրագիր', 'Պաշտոնական տվյալներ'); }
 
         function showToast(msg) {
             const t = document.getElementById('toast');
