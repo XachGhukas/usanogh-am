@@ -45,8 +45,8 @@
                     <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-sky-500 text-white flex items-center justify-center font-black text-2xl shadow-lg">ՈՒ</div>
                     <div>
                         <div class="flex items-center gap-1.5">
-                            <span class="text-2xl font-extrabold tracking-tight bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">Ուսանող․am</span>
-                            <span class="bg-emerald-100 text-emerald-700 text-[10px] font-bold px-2 py-0.5 rounded-full">PRO v4.1</span>
+                            <span class="text-2xl font-extrabold tracking-tight bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">Ուսանող․եմ</span>
+                            <span class="bg-emerald-100 text-emerald-700 text-[10px] font-bold px-2 py-0.5 rounded-full">PRO v4.2</span>
                         </div>
                         <p class="text-xs text-slate-500 font-medium">Ակադեմիական ինտեգրված համակարգ</p>
                     </div>
@@ -216,20 +216,20 @@
 
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                     <div><label class="block text-xs font-semibold text-slate-700 mb-1">Անուն *</label><input type="text" id="firstName" required class="w-full px-3.5 py-2 text-sm bg-slate-50 border rounded-xl"></div>
-                    <div><label class="block text-xs font-semibold mb-1">Ազգանուն *</label><input type="text" id="lastName" required class="w-full px-3.5 py-2 text-sm bg-slate-50 border rounded-xl"></div>
-                    <div><label class="block text-xs font-semibold mb-1">Հայրանուն *</label><input type="text" id="middleName" required class="w-full px-3.5 py-2 text-sm bg-slate-50 border rounded-xl"></div>
+                    <div><label class="block text-xs font-semibold text-slate-700 mb-1">Ազգանուն *</label><input type="text" id="lastName" required class="w-full px-3.5 py-2 text-sm bg-slate-50 border rounded-xl"></div>
+                    <div><label class="block text-xs font-semibold text-slate-700 mb-1">Հայրանուն *</label><input type="text" id="middleName" required class="w-full px-3.5 py-2 text-sm bg-slate-50 border rounded-xl"></div>
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div><label class="block text-xs font-semibold text-slate-700 mb-1">Համալսարան *</label><input type="text" id="university" required value="ՀՊՄՀ" class="w-full px-3.5 py-2 text-sm bg-slate-50 border rounded-xl"></div>
-                    <div><label class="block text-xs font-semibold mb-1">Ֆակուլտետ *</label><input type="text" id="faculty" required value="Կուլտուրայի ֆակուլտետ" class="w-full px-3.5 py-2 text-sm bg-slate-50 border rounded-xl"></div>
+                    <div><label class="block text-xs font-semibold text-slate-700 mb-1">Ֆակուլտետ *</label><input type="text" id="faculty" required value="Կուլտուրայի ֆակուլտետ" class="w-full px-3.5 py-2 text-sm bg-slate-50 border rounded-xl"></div>
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
                     <div><label class="block text-xs font-semibold text-slate-700 mb-1">Ամբիոն *</label><input type="text" id="chair" required value="Գեղարվեստական լուսանկարչության" class="w-full px-3.5 py-2 text-sm bg-slate-50 border rounded-xl"></div>
                     <div><label class="block text-xs font-semibold text-slate-700 mb-1">Կուրս *</label><select id="course" required class="w-full px-3.5 py-2 text-sm bg-slate-50 border rounded-xl"><option value="1-ին">1-ին կուրս</option><option value="2-րդ">2-րդ կուրս</option><option value="3-րդ">3-րդ կուրս</option><option value="4-րդ">4-րդ կուրս</option></select></div>
-                    <div><label class="block text-xs font-semibold mb-1">Ուստարի *</label><input type="text" id="academicYear" required value="2026-2027" class="w-full px-3.5 py-2 text-sm bg-slate-50 border rounded-xl"></div>
-                    <div><label class="block text-xs font-semibold mb-1">Ուսուցման ձևը *</label><select id="educationForm" required class="w-full px-3.5 py-2 text-sm bg-slate-50 border rounded-xl"><option value="Անվճար">Անվճար</option><option value="Վճարովի">Վճարովի</option></select></div>
+                    <div><label class="block text-xs font-semibold text-slate-700 mb-1">Ուստարի *</label><input type="text" id="academicYear" required value="2026-2027" class="w-full px-3.5 py-2 text-sm bg-slate-50 border rounded-xl"></div>
+                    <div><label class="block text-xs font-semibold text-slate-700 mb-1">Ուսուցման ձևը *</label><select id="educationForm" required class="w-full px-3.5 py-2 text-sm bg-slate-50 border rounded-xl"><option value="Անվճար">Անվճար</option><option value="Վճարովի">Վճարովի</option></select></div>
                 </div>
 
                 <div class="pt-4 flex justify-end gap-3 border-t">
@@ -408,12 +408,8 @@
         }
 
         function updateDashboardStats() {
-            document.getElementById('statTotalStudents').innerText = appData.students.length;
-            document.getElementById('statTotalFolders').innerText = appData.folders.length;
-            let totalGrades = 0, sumScores = 0;
-            appData.students.forEach(s => (s.subjects || []).forEach(sub => (sub.grades || []).forEach(g => { totalGrades++; sumScores += Number(g.score || 0); })));
-            document.getElementById('statTotalGrades').innerText = totalGrades;
-            document.getElementById('statAvgMog').innerText = totalGrades > 0 ? (sumScores / totalGrades).toFixed(1) : '0';
+            document.getElementById('statTotalStudents') && (document.getElementById('statTotalStudents').innerText = appData.students.length);
+            document.getElementById('statTotalFolders') && (document.getElementById('statTotalFolders').innerText = appData.folders.length);
         }
 
         function handleSearch(q) { renderStudents(q.toLowerCase().trim()); }
@@ -509,6 +505,7 @@
         function renderStudents(filterQuery = '') {
             const grid = document.getElementById('studentsGrid');
             const empty = document.getElementById('emptyStudentsState');
+            if (!grid) return;
             grid.innerHTML = '';
             const filtered = appData.students.filter(s => `${s.firstName} ${s.lastName} ${s.university}`.toLowerCase().includes(filterQuery));
             if (filtered.length === 0) { empty.classList.remove('hidden'); return; }
@@ -524,7 +521,7 @@
                                 <div><h3 class="font-bold text-sm text-slate-900">${s.lastName} ${s.firstName}</h3><p class="text-xs text-slate-500">${s.course} կուրս</p></div>
                             </div>
                             <div class="text-xs text-slate-600 space-y-1 border-t pt-2">
-                                <div><strong>Համալսարան՝</strong> ${s.university}</div>
+                                <div><strong>ԲՈՒՀ՝</strong> ${s.university}</div>
                                 <div><strong>Ֆակուլտետ՝</strong> ${s.faculty}</div>
                             </div>
                         </div>
@@ -557,7 +554,7 @@
             const s = appData.students.find(st => st.id === id);
             if (!s) return;
             addHistoryRecord('Ուսանողի պատմություն', `${s.lastName} ${s.firstName} — ${s.university}`);
-            showToast('Ուղարկվեց պատմությունը։');
+            showToast('Ուղարկվեց պատմություն։');
         }
 
         function openStudentDetail(id) {
@@ -590,6 +587,7 @@
         function renderFolders() {
             const grid = document.getElementById('foldersGrid');
             const empty = document.getElementById('emptyFoldersState');
+            if (!grid) return;
             grid.innerHTML = '';
             if (appData.folders.length === 0) { empty.classList.remove('hidden'); return; }
             empty.classList.add('hidden');
@@ -601,6 +599,7 @@
         // GRADEBOOK
         function initGradebookTab() {
             const select = document.getElementById('gradebookStudentSelect');
+            if (!select) return;
             select.innerHTML = '';
             appData.students.forEach(s => { select.innerHTML += `<option value="${s.id}">${s.lastName} ${s.firstName}</option>`; });
             if (appData.students.length > 0) loadStudentGradebook(appData.students[0].id);
@@ -639,6 +638,7 @@
         function renderArchive() {
             const grid = document.getElementById('archivedTopicsGrid');
             const empty = document.getElementById('emptyArchiveState');
+            if (!grid) return;
             grid.innerHTML = '';
             if (appData.archive.length === 0) { empty.classList.remove('hidden'); return; }
             empty.classList.add('hidden');
@@ -649,6 +649,7 @@
         function renderHistory() {
             const timeline = document.getElementById('historyTimeline');
             const empty = document.getElementById('emptyHistoryState');
+            if (!timeline) return;
             timeline.innerHTML = '';
             if (appData.history.length === 0) { empty.classList.remove('hidden'); return; }
             empty.classList.add('hidden');
@@ -666,6 +667,7 @@
 
         function showToast(msg) {
             const t = document.getElementById('toast');
+            if (!t) return;
             document.getElementById('toastMessage').innerText = msg;
             t.classList.remove('opacity-0', 'translate-y-20', 'pointer-events-none');
             setTimeout(() => t.classList.add('opacity-0', 'translate-y-20', 'pointer-events-none'), 2500);
